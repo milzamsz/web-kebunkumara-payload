@@ -1,0 +1,767 @@
+
+> frontend@0.1.0 dev
+> node scripts/next-runner.mjs dev
+
+[next-runner] dev on port 3000
+▲ Next.js 16.2.0-canary.99 (Turbopack)
+- Local:         http://localhost:3000
+- Network:       http://172.22.80.1:3000
+- Environments: .env
+✓ Ready in 713ms
+
+○ Compiling /admin/[[...segments]] ...
+[⣷] Pulling schema from database...
+[2K[1G[✓] Pulling schema from database...
+[13:54:10] [33mWARN[39m: [36mNo email adapter provided. Email will be written to console. More info at https://payloadcms.com/docs/email/overview.[39m
+ GET /admin 200 in 25.9s (next.js: 13.8s, application-code: 12.1s)
+[browser] Uncaught Error: Hydration failed because the server rendered text didn't match the client. As a result this tree will be regenerated on the client. This can happen if a SSR-ed Client Component used:
+
+- A server/client branch `if (typeof window !== 'undefined')`.
+- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
+- Date formatting in a user's locale which doesn't match the server.
+- External changing data without sending a snapshot of it along with the HTML.
+- Invalid HTML tag nesting.
+
+It can also happen if the client has a browser extension installed which messes with the HTML before React loaded.
+
+https://react.dev/link/hydration-mismatch
+
+  ...
+    <ScrollAndMaybeFocusHandler cacheNode={{rsc:{...}, ...}}>
+      <InnerScrollAndFocusHandlerOld focusAndScrollRef={{scrollRef:null, ...}} cacheNode={{rsc:{...}, ...}}>
+        <ErrorBoundary errorComponent={undefined} errorStyles={undefined} errorScripts={undefined}>
+          <LoadingBoundary name="/" loading={null}>
+            <HTTPAccessFallbackBoundary notFound={{...}} forbidden={undefined} unauthorized={undefined}>
+              <HTTPAccessFallbackErrorBoundary pathname="/admin" notFound={{...}} forbidden={undefined} ...>
+                <RedirectBoundary>
+                  <RedirectErrorBoundary router={{...}}>
+                    <InnerLayoutRouter url="/admin" tree={[...]} params={{}} cacheNode={{rsc:{...}, ...}} ...>
+                      <SegmentViewNode type="layout" pagePath="(payload)/...">
+                        <SegmentTrieNode>
+                        <link>
+                        <script>
+                        <script>
+                        <script>
+                        <script>
+                        <script>
+                        <script>
+                        <script>
+                        <script>
+                        <script>
+                        <script>
+                        <script>
+                        <script>
+                        <script>
+                        <script>
+                        <script>
+                        <script>
+                        <script>
+                        <PayloadLayout>
+                          <RootLayout>
+                            <html data-theme="light" dir="LTR" lang="en" suppressHydrationWarning={true}>
+                              <head>
+                                <style
+-                                 id="stndz-general-13"
+                                >
++                                 @layer payload-default, payload;
+-                                 {".view-id-ads, .view-id-advertisement, .view-image-ads, .view-site-ads, .view_ad,..."}
+                              ...
+                    ...
+        ...
+
+    at <unknown> (https://react.dev/link/hydration-mismatch)
+    at style (<anonymous>)
+    at PayloadLayout (src\app\(payload)\layout.tsx:21:5)
+  19 | export default function PayloadLayout({ children }: { children: React.ReactNode }) {
+  20 |   return (
+> 21 |     <RootLayout
+     |     ^
+  22 |       config={config}
+  23 |       htmlProps={{ suppressHydrationWarning: true }}
+  24 |       importMap={importMap}
+ GET /api/users/me 200 in 4.0s (next.js: 3.9s, application-code: 48ms)
+ GET /api/users/me 200 in 21ms (next.js: 13ms, application-code: 8ms)
+ GET /api/payload-preferences/nav 200 in 62ms (next.js: 56ms, application-code: 6ms)
+ GET /api/payload-preferences/nav 200 in 118ms (next.js: 110ms, application-code: 8ms)
+ GET /admin/login 200 in 296ms (next.js: 16ms, application-code: 280ms)
+ GET /admin/login 200 in 136ms (next.js: 6ms, application-code: 129ms)
+ GET /admin/create-first-user 200 in 431ms (next.js: 7ms, application-code: 424ms)
+ GET /admin/create-first-user 200 in 203ms (next.js: 9ms, application-code: 194ms)
+Error: Failed to find Server Action "40a834fbd87e27643303be7ac4fcee0288eff578b8". This request might be from an older or newer deployment.
+Read more: https://nextjs.org/docs/messages/failed-to-find-server-action
+    at ignore-listed frames
+ POST /admin/create-first-user 404 in 403ms (next.js: 6ms, application-code: 397ms)
+[browser] UnrecognizedActionError: Server Action "40a834fbd87e27643303be7ac4fcee0288eff578b8" was not found on the server. 
+Read more: https://nextjs.org/docs/messages/failed-to-find-server-action
+ GET /admin 200 in 171ms (next.js: 20ms, application-code: 151ms)
+[browser] Uncaught Error: Hydration failed because the server rendered text didn't match the client. As a result this tree will be regenerated on the client. This can happen if a SSR-ed Client Component used:
+
+- A server/client branch `if (typeof window !== 'undefined')`.
+- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
+- Date formatting in a user's locale which doesn't match the server.
+- External changing data without sending a snapshot of it along with the HTML.
+- Invalid HTML tag nesting.
+
+It can also happen if the client has a browser extension installed which messes with the HTML before React loaded.
+
+https://react.dev/link/hydration-mismatch
+
+  ...
+    <ScrollAndMaybeFocusHandler cacheNode={{rsc:{...}, ...}}>
+      <InnerScrollAndFocusHandlerOld focusAndScrollRef={{scrollRef:null, ...}} cacheNode={{rsc:{...}, ...}}>
+        <ErrorBoundary errorComponent={undefined} errorStyles={undefined} errorScripts={undefined}>
+          <LoadingBoundary name="/" loading={null}>
+            <HTTPAccessFallbackBoundary notFound={{...}} forbidden={undefined} unauthorized={undefined}>
+              <HTTPAccessFallbackErrorBoundary pathname="/admin" notFound={{...}} forbidden={undefined} ...>
+                <RedirectBoundary>
+                  <RedirectErrorBoundary router={{...}}>
+                    <InnerLayoutRouter url="/admin" tree={[...]} params={{}} cacheNode={{rsc:{...}, ...}} ...>
+                      <SegmentViewNode type="layout" pagePath="(payload)/...">
+                        <SegmentTrieNode>
+                        <link>
+                        <script>
+                        <script>
+                        <script>
+                        <script>
+                        <script>
+                        <script>
+                        <script>
+                        <script>
+                        <script>
+                        <script>
+                        <script>
+                        <script>
+                        <script>
+                        <script>
+                        <script>
+                        <script>
+                        <script>
+                        <PayloadLayout>
+                          <RootLayout>
+                            <html data-theme="light" dir="LTR" lang="en" suppressHydrationWarning={true}>
+                              <head>
+                                <style
+-                                 id="stndz-general-13"
+                                >
++                                 @layer payload-default, payload;
+-                                 {".view-id-ads, .view-id-advertisement, .view-image-ads, .view-site-ads, .view_ad,..."}
+                              ...
+                    ...
+        ...
+
+    at <unknown> (https://react.dev/link/hydration-mismatch)
+    at style (<anonymous>)
+    at PayloadLayout (src\app\(payload)\layout.tsx:21:5)
+  19 | export default function PayloadLayout({ children }: { children: React.ReactNode }) {
+  20 |   return (
+> 21 |     <RootLayout
+     |     ^
+  22 |       config={config}
+  23 |       htmlProps={{ suppressHydrationWarning: true }}
+  24 |       importMap={importMap}
+ GET /api/users/me 200 in 32ms (next.js: 15ms, application-code: 17ms)
+ GET /api/users/me 200 in 16ms (next.js: 3ms, application-code: 13ms)
+ GET /admin/login 200 in 291ms (next.js: 8ms, application-code: 283ms)
+ GET /admin/login 200 in 554ms (next.js: 7ms, application-code: 546ms)
+ GET /admin/create-first-user 200 in 441ms (next.js: 7ms, application-code: 433ms)
+ GET /admin/create-first-user 200 in 229ms (next.js: 6ms, application-code: 222ms)
+Error: Failed to find Server Action "40a834fbd87e27643303be7ac4fcee0288eff578b8". This request might be from an older or newer deployment.
+Read more: https://nextjs.org/docs/messages/failed-to-find-server-action
+    at ignore-listed frames
+ POST /admin/create-first-user 404 in 555ms (next.js: 22ms, application-code: 533ms)
+[browser] UnrecognizedActionError: Server Action "40a834fbd87e27643303be7ac4fcee0288eff578b8" was not found on the server. 
+Read more: https://nextjs.org/docs/messages/failed-to-find-server-action
+Error: Failed to find Server Action "40a834fbd87e27643303be7ac4fcee0288eff578b8". This request might be from an older or newer deployment.
+Read more: https://nextjs.org/docs/messages/failed-to-find-server-action
+    at ignore-listed frames
+ POST /admin/create-first-user 404 in 291ms (next.js: 13ms, application-code: 278ms)
+[browser] UnrecognizedActionError: Server Action "40a834fbd87e27643303be7ac4fcee0288eff578b8" was not found on the server. 
+Read more: https://nextjs.org/docs/messages/failed-to-find-server-action
+Error: Failed to find Server Action "40a834fbd87e27643303be7ac4fcee0288eff578b8". This request might be from an older or newer deployment.
+Read more: https://nextjs.org/docs/messages/failed-to-find-server-action
+    at ignore-listed frames
+ POST /admin/create-first-user 404 in 269ms (next.js: 5ms, application-code: 264ms)
+[browser] UnrecognizedActionError: Server Action "40a834fbd87e27643303be7ac4fcee0288eff578b8" was not found on the server. 
+Read more: https://nextjs.org/docs/messages/failed-to-find-server-action
+Error: Failed to find Server Action "40a834fbd87e27643303be7ac4fcee0288eff578b8". This request might be from an older or newer deployment.
+Read more: https://nextjs.org/docs/messages/failed-to-find-server-action
+    at ignore-listed frames
+ POST /admin/create-first-user 404 in 273ms (next.js: 6ms, application-code: 267ms)
+[browser] UnrecognizedActionError: Server Action "40a834fbd87e27643303be7ac4fcee0288eff578b8" was not found on the server. 
+Read more: https://nextjs.org/docs/messages/failed-to-find-server-action
+Error: Failed to find Server Action "40a834fbd87e27643303be7ac4fcee0288eff578b8". This request might be from an older or newer deployment.
+Read more: https://nextjs.org/docs/messages/failed-to-find-server-action
+    at ignore-listed frames
+ POST /admin/create-first-user 404 in 266ms (next.js: 9ms, application-code: 257ms)
+[browser] UnrecognizedActionError: Server Action "40a834fbd87e27643303be7ac4fcee0288eff578b8" was not found on the server. 
+Read more: https://nextjs.org/docs/messages/failed-to-find-server-action
+Error: Failed to find Server Action "40a834fbd87e27643303be7ac4fcee0288eff578b8". This request might be from an older or newer deployment.
+Read more: https://nextjs.org/docs/messages/failed-to-find-server-action
+    at ignore-listed frames
+ POST /admin/create-first-user 404 in 259ms (next.js: 4ms, application-code: 256ms)
+[browser] UnrecognizedActionError: Server Action "40a834fbd87e27643303be7ac4fcee0288eff578b8" was not found on the server. 
+Read more: https://nextjs.org/docs/messages/failed-to-find-server-action
+Error: Failed to find Server Action "40a834fbd87e27643303be7ac4fcee0288eff578b8". This request might be from an older or newer deployment.
+Read more: https://nextjs.org/docs/messages/failed-to-find-server-action
+    at ignore-listed frames
+ POST /admin/create-first-user 404 in 289ms (next.js: 4ms, application-code: 285ms)
+[browser] UnrecognizedActionError: Server Action "40a834fbd87e27643303be7ac4fcee0288eff578b8" was not found on the server. 
+Read more: https://nextjs.org/docs/messages/failed-to-find-server-action
+Error: Failed to find Server Action "40a834fbd87e27643303be7ac4fcee0288eff578b8". This request might be from an older or newer deployment.
+Read more: https://nextjs.org/docs/messages/failed-to-find-server-action
+    at ignore-listed frames
+ POST /admin/create-first-user 404 in 295ms (next.js: 25ms, application-code: 270ms)
+[browser] UnrecognizedActionError: Server Action "40a834fbd87e27643303be7ac4fcee0288eff578b8" was not found on the server. 
+Read more: https://nextjs.org/docs/messages/failed-to-find-server-action
+ POST /api/users/first-register 200 in 520ms (next.js: 16ms, application-code: 504ms)
+ GET /admin 200 in 376ms (next.js: 9ms, application-code: 367ms)
+ GET /admin/collections/pages 200 in 242ms (next.js: 10ms, application-code: 232ms)
+ GET /admin/collections/plants 200 in 233ms (next.js: 6ms, application-code: 226ms)
+ GET /admin/collections/services 200 in 344ms (next.js: 8ms, application-code: 336ms)
+ GET /admin/collections/contactSubmissions 200 in 272ms (next.js: 11ms, application-code: 261ms)
+ GET /admin/collections/search 200 in 251ms (next.js: 7ms, application-code: 244ms)
+ GET /admin/collections/redirects 200 in 177ms (next.js: 13ms, application-code: 164ms)
+ GET /admin/globals/header 200 in 324ms (next.js: 7ms, application-code: 317ms)
+ GET /api/payload-preferences/global-header 200 in 58ms (next.js: 19ms, application-code: 39ms)
+ POST /api/payload-preferences/global-header 200 in 53ms (next.js: 6ms, application-code: 48ms)
+ GET /admin/globals/footer 200 in 255ms (next.js: 7ms, application-code: 248ms)
+ GET /api/payload-preferences/global-footer 200 in 25ms (next.js: 4ms, application-code: 21ms)
+ POST /api/payload-preferences/global-footer 200 in 50ms (next.js: 5ms, application-code: 46ms)
+ GET /admin/globals/siteSettings 200 in 255ms (next.js: 8ms, application-code: 247ms)
+ GET /api/payload-preferences/global-siteSettings 200 in 26ms (next.js: 4ms, application-code: 22ms)
+ POST /api/payload-preferences/global-siteSettings 200 in 45ms (next.js: 4ms, application-code: 41ms)
+ GET /admin/collections/media 200 in 355ms (next.js: 13ms, application-code: 342ms)
+ GET /api/payload-preferences/nav 200 in 84ms (next.js: 16ms, application-code: 68ms)
+ GET / 200 in 3.2s (next.js: 2.9s, application-code: 320ms)
+ GET /admin 200 in 1049ms (next.js: 653ms, application-code: 396ms)
+[browser] Uncaught Error: Hydration failed because the server rendered text didn't match the client. As a result this tree will be regenerated on the client. This can happen if a SSR-ed Client Component used:
+
+- A server/client branch `if (typeof window !== 'undefined')`.
+- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
+- Date formatting in a user's locale which doesn't match the server.
+- External changing data without sending a snapshot of it along with the HTML.
+- Invalid HTML tag nesting.
+
+It can also happen if the client has a browser extension installed which messes with the HTML before React loaded.
+
+https://react.dev/link/hydration-mismatch
+
+  ...
+    <ScrollAndMaybeFocusHandler cacheNode={{rsc:{...}, ...}}>
+      <InnerScrollAndFocusHandlerOld focusAndScrollRef={{scrollRef:null, ...}} cacheNode={{rsc:{...}, ...}}>
+        <ErrorBoundary errorComponent={undefined} errorStyles={undefined} errorScripts={undefined}>
+          <LoadingBoundary name="/" loading={null}>
+            <HTTPAccessFallbackBoundary notFound={{...}} forbidden={undefined} unauthorized={undefined}>
+              <HTTPAccessFallbackErrorBoundary pathname="/admin" notFound={{...}} forbidden={undefined} ...>
+                <RedirectBoundary>
+                  <RedirectErrorBoundary router={{...}}>
+                    <InnerLayoutRouter url="/admin" tree={[...]} params={{}} cacheNode={{rsc:{...}, ...}} ...>
+                      <SegmentViewNode type="layout" pagePath="(payload)/...">
+                        <SegmentTrieNode>
+                        <link>
+                        <script>
+                        <script>
+                        <script>
+                        <script>
+                        <script>
+                        <script>
+                        <script>
+                        <script>
+                        <script>
+                        <script>
+                        <script>
+                        <script>
+                        <script>
+                        <script>
+                        <script>
+                        <script>
+                        <script>
+                        <PayloadLayout>
+                          <RootLayout>
+                            <html data-theme="light" dir="LTR" lang="en" suppressHydrationWarning={true}>
+                              <head>
+                                <style
+-                                 id="stndz-general-13"
+                                >
++                                 @layer payload-default, payload;
+-                                 {".view-id-ads, .view-id-advertisement, .view-image-ads, .view-site-ads, .view_ad,..."}
+                              ...
+                    ...
+        ...
+
+    at <unknown> (https://react.dev/link/hydration-mismatch)
+    at style (<anonymous>)
+    at PayloadLayout (src\app\(payload)\layout.tsx:21:5)
+  19 | export default function PayloadLayout({ children }: { children: React.ReactNode }) {
+  20 |   return (
+> 21 |     <RootLayout
+     |     ^
+  22 |       config={config}
+  23 |       htmlProps={{ suppressHydrationWarning: true }}
+  24 |       importMap={importMap}
+ GET /api/users/me 200 in 51ms (next.js: 16ms, application-code: 35ms)
+ GET /api/users/me 200 in 28ms (next.js: 6ms, application-code: 22ms)
+ GET /api/payload-preferences/nav 200 in 29ms (next.js: 5ms, application-code: 24ms)
+ GET /admin/collections/pages 200 in 313ms (next.js: 14ms, application-code: 300ms)
+ GET /admin/collections/pages/4 200 in 323ms (next.js: 11ms, application-code: 312ms)
+ GET /api/payload-preferences/collection-pages 200 in 60ms (next.js: 18ms, application-code: 42ms)
+ POST /api/payload-preferences/collection-pages 200 in 47ms (next.js: 5ms, application-code: 42ms)
+ GET /admin/collections/pages/4/versions 200 in 321ms (next.js: 9ms, application-code: 312ms)
+ GET /admin/collections/pages/4/versions/4 200 in 373ms (next.js: 5ms, application-code: 368ms)
+ GET /admin/collections/plantCategories 200 in 153ms (next.js: 9ms, application-code: 143ms)
+ GET /admin/collections/categories 200 in 180ms (next.js: 4ms, application-code: 176ms)
+ GET /admin/collections/posts 200 in 179ms (next.js: 4ms, application-code: 176ms)
+ GET /api/users?depth=0&limit=250&where%5Bid%5D%5Bin%5D=2& 200 in 58ms (next.js: 16ms, application-code: 42ms)
+ GET /admin/collections/posts/6 200 in 376ms (next.js: 10ms, application-code: 366ms)
+ GET /api/payload-preferences/collection-posts 200 in 40ms (next.js: 4ms, application-code: 36ms)
+ POST /api/categories 200 in 41ms (next.js: 7ms, application-code: 34ms)
+ POST /api/users 200 in 28ms (next.js: 5ms, application-code: 22ms)
+ POST /api/payload-preferences/collection-posts 200 in 37ms (next.js: 4ms, application-code: 33ms)
+ PATCH /api/posts/6?autosave=true&depth=0&draft=true&fallback-locale=null 200 in 140ms (next.js: 22ms, application-code: 118ms)
+ GET /api/payload-preferences/collection-posts-6 200 in 16ms (next.js: 2ms, application-code: 13ms)
+Error: Failed to find Server Action "40a834fbd87e27643303be7ac4fcee0288eff578b8". This request might be from an older or newer deployment.
+Read more: https://nextjs.org/docs/messages/failed-to-find-server-action
+    at ignore-listed frames
+ POST /admin/collections/posts/6 404 in 308ms (next.js: 10ms, application-code: 298ms)
+Error: Failed to find Server Action "40a834fbd87e27643303be7ac4fcee0288eff578b8". This request might be from an older or newer deployment.
+Read more: https://nextjs.org/docs/messages/failed-to-find-server-action
+    at ignore-listed frames
+ POST /admin/collections/posts/6 404 in 358ms (next.js: 7ms, application-code: 352ms)
+[browser] UnrecognizedActionError: Server Action "40a834fbd87e27643303be7ac4fcee0288eff578b8" was not found on the server. 
+Read more: https://nextjs.org/docs/messages/failed-to-find-server-action
+[browser] UnrecognizedActionError: Server Action "40a834fbd87e27643303be7ac4fcee0288eff578b8" was not found on the server. 
+Read more: https://nextjs.org/docs/messages/failed-to-find-server-action
+ PATCH /api/posts/6?depth=0 200 in 141ms (next.js: 3ms, application-code: 138ms)
+ POST /api/posts/access/6 200 in 22ms (next.js: 4ms, application-code: 17ms)
+ POST /api/posts/access/6 200 in 15ms (next.js: 3ms, application-code: 12ms)
+Error: Failed to find Server Action "40a834fbd87e27643303be7ac4fcee0288eff578b8". This request might be from an older or newer deployment.
+Read more: https://nextjs.org/docs/messages/failed-to-find-server-action
+    at ignore-listed frames
+ POST /admin/collections/posts/6 404 in 387ms (next.js: 9ms, application-code: 379ms)
+[browser] UnrecognizedActionError: Server Action "40a834fbd87e27643303be7ac4fcee0288eff578b8" was not found on the server. 
+Read more: https://nextjs.org/docs/messages/failed-to-find-server-action
+ GET / 200 in 140ms (next.js: 3ms, application-code: 138ms)
+ GET /blog 200 in 838ms (next.js: 678ms, application-code: 161ms)
+ GET /blog/composting-101 200 in 3.3s (next.js: 3.3s, generate-params: 2.6s, application-code: 56ms)
+ GET /blog/composting-101 200 in 98ms (next.js: 10ms, generate-params: 7ms, application-code: 88ms)
+ PATCH /api/posts/6?autosave=true&depth=0&draft=true&fallback-locale=null 200 in 85ms (next.js: 8ms, application-code: 77ms)
+Error: Failed to find Server Action "40a834fbd87e27643303be7ac4fcee0288eff578b8". This request might be from an older or newer deployment.
+Read more: https://nextjs.org/docs/messages/failed-to-find-server-action
+    at ignore-listed frames
+ POST /admin/collections/posts/6 404 in 234ms (next.js: 16ms, application-code: 218ms)
+[browser] UnrecognizedActionError: Server Action "40a834fbd87e27643303be7ac4fcee0288eff578b8" was not found on the server. 
+Read more: https://nextjs.org/docs/messages/failed-to-find-server-action
+ PATCH /api/posts/6?autosave=true&depth=0&draft=true&fallback-locale=null 200 in 49ms (next.js: 2ms, application-code: 47ms)
+Error: Failed to find Server Action "40a834fbd87e27643303be7ac4fcee0288eff578b8". This request might be from an older or newer deployment.
+Read more: https://nextjs.org/docs/messages/failed-to-find-server-action
+    at ignore-listed frames
+ POST /admin/collections/posts/6 404 in 256ms (next.js: 4ms, application-code: 252ms)
+[browser] UnrecognizedActionError: Server Action "40a834fbd87e27643303be7ac4fcee0288eff578b8" was not found on the server. 
+Read more: https://nextjs.org/docs/messages/failed-to-find-server-action
+ PATCH /api/posts/6?autosave=true&depth=0&draft=true&fallback-locale=null 200 in 55ms (next.js: 3ms, application-code: 52ms)
+Error: Failed to find Server Action "40a834fbd87e27643303be7ac4fcee0288eff578b8". This request might be from an older or newer deployment.
+Read more: https://nextjs.org/docs/messages/failed-to-find-server-action
+    at ignore-listed frames
+ POST /admin/collections/posts/6 404 in 288ms (next.js: 5ms, application-code: 283ms)
+[browser] UnrecognizedActionError: Server Action "40a834fbd87e27643303be7ac4fcee0288eff578b8" was not found on the server. 
+Read more: https://nextjs.org/docs/messages/failed-to-find-server-action
+ PATCH /api/posts/6?depth=0 200 in 117ms (next.js: 4ms, application-code: 112ms)
+ POST /api/posts/access/6 200 in 22ms (next.js: 5ms, application-code: 17ms)
+ POST /api/posts/access/6 200 in 18ms (next.js: 5ms, application-code: 13ms)
+Error: Failed to find Server Action "40a834fbd87e27643303be7ac4fcee0288eff578b8". This request might be from an older or newer deployment.
+Read more: https://nextjs.org/docs/messages/failed-to-find-server-action
+    at ignore-listed frames
+ POST /admin/collections/posts/6 404 in 474ms (next.js: 4ms, application-code: 470ms)
+[browser] UnrecognizedActionError: Server Action "40a834fbd87e27643303be7ac4fcee0288eff578b8" was not found on the server. 
+Read more: https://nextjs.org/docs/messages/failed-to-find-server-action
+ GET /admin/collections/plants 200 in 191ms (next.js: 10ms, application-code: 182ms)
+ GET /admin/collections/categories 200 in 224ms (next.js: 4ms, application-code: 220ms)
+ GET /admin/collections/posts 200 in 382ms (next.js: 8ms, application-code: 374ms)
+ GET /api/users?depth=0&limit=250&where%5Bid%5D%5Bin%5D=2& 200 in 41ms (next.js: 18ms, application-code: 23ms)
+ GET /admin/collections/pages 200 in 441ms (next.js: 7ms, application-code: 433ms)
+ GET /admin/collections/media 200 in 210ms (next.js: 5ms, application-code: 205ms)
+ GET /admin/collections/users 200 in 198ms (next.js: 4ms, application-code: 194ms)
+ GET /admin/collections/contactSubmissions 200 in 136ms (next.js: 9ms, application-code: 127ms)
+ GET /admin/collections/search 200 in 157ms (next.js: 4ms, application-code: 152ms)
+ GET /admin/globals/header 200 in 190ms (next.js: 9ms, application-code: 181ms)
+ GET /api/payload-preferences/global-header 200 in 53ms (next.js: 18ms, application-code: 34ms)
+ GET /blog 200 in 90ms (next.js: 3ms, application-code: 88ms)
+ GET / 200 in 21ms (next.js: 3ms, application-code: 18ms)
+ GET /why-garden 200 in 658ms (next.js: 556ms, application-code: 102ms)
+[browser] Image with src "/images/generated/urban-garden-hero.png" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[browser] Image with src "https://images.unsplash.com/photo-1614594975525-e45190c55d0b?w=400&h=500&fit=crop" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+ GET /contact 200 in 472ms (next.js: 417ms, application-code: 55ms)
+Generating import map
+No new imports found, skipping writing import map
+ GET /admin/globals/header 200 in 2.6s (next.js: 1920ms, application-code: 715ms)
+ GET /admin/collections/media?depth=1&limit=10 200 in 2.8s (next.js: 1390ms, application-code: 1367ms)
+ POST /api/users/refresh-token?refresh 200 in 81ms (next.js: 10ms, application-code: 70ms)
+ GET /admin/globals/header 200 in 1166ms (next.js: 17ms, application-code: 1148ms)
+ GET /api/users/me 200 in 56ms (next.js: 13ms, application-code: 43ms)
+ GET /api/payload-preferences/global-header 200 in 57ms (next.js: 11ms, application-code: 46ms)
+ GET /api/users/me 200 in 28ms (next.js: 5ms, application-code: 23ms)
+ GET /api/payload-preferences/nav 200 in 23ms (next.js: 4ms, application-code: 19ms)
+[browser] Uncaught Error: Hydration failed because the server rendered text didn't match the client. As a result this tree will be regenerated on the client. This can happen if a SSR-ed Client Component used:
+
+- A server/client branch `if (typeof window !== 'undefined')`.
+- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
+- Date formatting in a user's locale which doesn't match the server.
+- External changing data without sending a snapshot of it along with the HTML.
+- Invalid HTML tag nesting.
+
+It can also happen if the client has a browser extension installed which messes with the HTML before React loaded.
+
+https://react.dev/link/hydration-mismatch
+
+  ...
+    <ScrollAndMaybeFocusHandler cacheNode={{rsc:{...}, ...}}>
+      <InnerScrollAndFocusHandlerOld focusAndScrollRef={{scrollRef:null, ...}} cacheNode={{rsc:{...}, ...}}>
+        <ErrorBoundary errorComponent={undefined} errorStyles={undefined} errorScripts={undefined}>
+          <LoadingBoundary name="/" loading={null}>
+            <HTTPAccessFallbackBoundary notFound={{...}} forbidden={undefined} unauthorized={undefined}>
+              <HTTPAccessFallbackErrorBoundary pathname="/admin/glo..." notFound={{...}} forbidden={undefined} ...>
+                <RedirectBoundary>
+                  <RedirectErrorBoundary router={{...}}>
+                    <InnerLayoutRouter url="/admin/glo..." tree={[...]} params={{}} cacheNode={{rsc:{...}, ...}} ...>
+                      <SegmentViewNode type="layout" pagePath="(payload)/...">
+                        <SegmentTrieNode>
+                        <link>
+                        <script>
+                        <script>
+                        <script>
+                        <script>
+                        <script>
+                        <script>
+                        <script>
+                        <script>
+                        <script>
+                        <script>
+                        <script>
+                        <script>
+                        <script>
+                        <script>
+                        <script>
+                        <script>
+                        <script>
+                        <PayloadLayout>
+                          <RootLayout>
+                            <html data-theme="light" dir="LTR" lang="en" suppressHydrationWarning={true}>
+                              <head>
+                                <style
+-                                 id="stndz-general-13"
+                                >
++                                 @layer payload-default, payload;
+-                                 {".view-id-ads, .view-id-advertisement, .view-image-ads, .view-site-ads, .view_ad,..."}
+                              ...
+                    ...
+        ...
+
+    at <unknown> (https://react.dev/link/hydration-mismatch)
+    at style (<anonymous>)
+    at PayloadLayout (src\app\(payload)\layout.tsx:21:5)
+  19 | export default function PayloadLayout({ children }: { children: React.ReactNode }) {
+  20 |   return (
+> 21 |     <RootLayout
+     |     ^
+  22 |       config={config}
+  23 |       htmlProps={{ suppressHydrationWarning: true }}
+  24 |       bodyProps={{ suppressHydrationWarning: true }}
+ GET /admin/logout 200 in 166ms (next.js: 11ms, application-code: 155ms)
+ POST /api/users/logout 200 in 51ms (next.js: 14ms, application-code: 37ms)
+ GET /admin/login 200 in 152ms (next.js: 7ms, application-code: 145ms)
+ GET /admin/logout-inactivity?redirect=%2Fadmin%2Fcollections%2Fmedia 200 in 128ms (next.js: 13ms, application-code: 115ms)
+ GET /admin/login?redirect=%2Fadmin%2Fcollections%2Fmedia 200 in 258ms (next.js: 7ms, application-code: 250ms)
+ GET /admin/login?redirect=%2Fadmin%2Fcollections%2Fmedia 200 in 107ms (next.js: 5ms, application-code: 102ms)
+[17:28:48] [31mERROR[39m: [36mThe email or password provided is incorrect.[39m
+    err: {
+      "type": "AuthenticationError",
+      "message": "The email or password provided is incorrect.",
+      "stack":
+          AuthenticationError: The email or password provided is incorrect.
+              at checkLoginPermission (file:///C:/Projects/Personal/kebunkumara/web-kebunkumara-payload/node_modules/payload/dist/auth/operations/login.js:23:15)
+              at loginOperation (file:///C:/Projects/Personal/kebunkumara/web-kebunkumara-payload/node_modules/payload/dist/auth/operations/login.js:155:5)
+              at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+              at async loginHandler (file:///C:/Projects/Personal/kebunkumara/web-kebunkumara-payload/node_modules/payload/dist/auth/endpoints/login.js:19:20)
+              at async handleEndpoints (file:///C:/Projects/Personal/kebunkumara/web-kebunkumara-payload/node_modules/payload/dist/utilities/handleEndpoints.js:198:26)
+              at async C:\Projects\Personal\kebunkumara\web-kebunkumara-payload\.next\dev\server\chunks\[root-of-the-server]__0mkqbcb._.js:5342:26
+              at async AppRouteRouteModule.do (C:\Projects\Personal\kebunkumara\web-kebunkumara-payload\node_modules\next\dist\compiled\next-server\app-route-turbo.runtime.dev.js:5:40435)
+              at async AppRouteRouteModule.handle (C:\Projects\Personal\kebunkumara\web-kebunkumara-payload\node_modules\next\dist\compiled\next-server\app-route-turbo.runtime.dev.js:5:47564)
+              at async responseGenerator (C:\Projects\Personal\kebunkumara\web-kebunkumara-payload\.next\dev\server\chunks\node_modules_next_0fo5yid._.js:10447:38)
+              at async AppRouteRouteModule.handleResponse (C:\Projects\Personal\kebunkumara\web-kebunkumara-payload\node_modules\next\dist\compiled\next-server\app-route-turbo.runtime.dev.js:1:227116)
+              at async handleResponse (C:\Projects\Personal\kebunkumara\web-kebunkumara-payload\.next\dev\server\chunks\node_modules_next_0fo5yid._.js:10510:32)
+              at async Module.handler (C:\Projects\Personal\kebunkumara\web-kebunkumara-payload\.next\dev\server\chunks\node_modules_next_0fo5yid._.js:10564:13)
+              at async DevServer.renderToResponseWithComponentsImpl (C:\Projects\Personal\kebunkumara\web-kebunkumara-payload\node_modules\next\dist\server\base-server.js:1454:9)
+              at async DevServer.renderPageComponent (C:\Projects\Personal\kebunkumara\web-kebunkumara-payload\node_modules\next\dist\server\base-server.js:1506:24)
+              at async DevServer.renderToResponseImpl (C:\Projects\Personal\kebunkumara\web-kebunkumara-payload\node_modules\next\dist\server\base-server.js:1556:32)
+              at async DevServer.pipeImpl (C:\Projects\Personal\kebunkumara\web-kebunkumara-payload\node_modules\next\dist\server\base-server.js:1043:25)
+              at async NextNodeServer.handleCatchallRenderRequest (C:\Projects\Personal\kebunkumara\web-kebunkumara-payload\node_modules\next\dist\server\next-server.js:338:17)
+              at async DevServer.handleRequestImpl (C:\Projects\Personal\kebunkumara\web-kebunkumara-payload\node_modules\next\dist\server\base-server.js:934:17)
+              at async C:\Projects\Personal\kebunkumara\web-kebunkumara-payload\node_modules\next\dist\server\dev\next-dev-server.js:394:20
+              at async Span.traceAsyncFn (C:\Projects\Personal\kebunkumara\web-kebunkumara-payload\node_modules\next\dist\trace\trace.js:164:20)
+              at async DevServer.handleRequest (C:\Projects\Personal\kebunkumara\web-kebunkumara-payload\node_modules\next\dist\server\dev\next-dev-server.js:390:24)
+              at async invokeRender (C:\Projects\Personal\kebunkumara\web-kebunkumara-payload\node_modules\next\dist\server\lib\router-server.js:253:21)
+              at async handleRequest (C:\Projects\Personal\kebunkumara\web-kebunkumara-payload\node_modules\next\dist\server\lib\router-server.js:452:24)
+              at async requestHandlerImpl (C:\Projects\Personal\kebunkumara\web-kebunkumara-payload\node_modules\next\dist\server\lib\router-server.js:501:13)
+              at async Server.requestListener (C:\Projects\Personal\kebunkumara\web-kebunkumara-payload\node_modules\next\dist\server\lib\start-server.js:225:13)
+      "data": null,
+      "isOperational": true,
+      "isPublic": true,
+      "status": 401,
+      "name": "AuthenticationError"
+    }
+ POST /api/users/login 401 in 41ms (next.js: 7ms, application-code: 34ms)
+[17:28:51] [31mERROR[39m: [36mThe email or password provided is incorrect.[39m
+    err: {
+      "type": "AuthenticationError",
+      "message": "The email or password provided is incorrect.",
+      "stack":
+          AuthenticationError: The email or password provided is incorrect.
+              at checkLoginPermission (file:///C:/Projects/Personal/kebunkumara/web-kebunkumara-payload/node_modules/payload/dist/auth/operations/login.js:23:15)
+              at loginOperation (file:///C:/Projects/Personal/kebunkumara/web-kebunkumara-payload/node_modules/payload/dist/auth/operations/login.js:155:5)
+              at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+              at async loginHandler (file:///C:/Projects/Personal/kebunkumara/web-kebunkumara-payload/node_modules/payload/dist/auth/endpoints/login.js:19:20)
+              at async handleEndpoints (file:///C:/Projects/Personal/kebunkumara/web-kebunkumara-payload/node_modules/payload/dist/utilities/handleEndpoints.js:198:26)
+              at async C:\Projects\Personal\kebunkumara\web-kebunkumara-payload\.next\dev\server\chunks\[root-of-the-server]__0mkqbcb._.js:5342:26
+              at async AppRouteRouteModule.do (C:\Projects\Personal\kebunkumara\web-kebunkumara-payload\node_modules\next\dist\compiled\next-server\app-route-turbo.runtime.dev.js:5:40435)
+              at async AppRouteRouteModule.handle (C:\Projects\Personal\kebunkumara\web-kebunkumara-payload\node_modules\next\dist\compiled\next-server\app-route-turbo.runtime.dev.js:5:47564)
+              at async responseGenerator (C:\Projects\Personal\kebunkumara\web-kebunkumara-payload\.next\dev\server\chunks\node_modules_next_0fo5yid._.js:10447:38)
+              at async AppRouteRouteModule.handleResponse (C:\Projects\Personal\kebunkumara\web-kebunkumara-payload\node_modules\next\dist\compiled\next-server\app-route-turbo.runtime.dev.js:1:227116)
+              at async handleResponse (C:\Projects\Personal\kebunkumara\web-kebunkumara-payload\.next\dev\server\chunks\node_modules_next_0fo5yid._.js:10510:32)
+              at async Module.handler (C:\Projects\Personal\kebunkumara\web-kebunkumara-payload\.next\dev\server\chunks\node_modules_next_0fo5yid._.js:10564:13)
+              at async DevServer.renderToResponseWithComponentsImpl (C:\Projects\Personal\kebunkumara\web-kebunkumara-payload\node_modules\next\dist\server\base-server.js:1454:9)
+              at async DevServer.renderPageComponent (C:\Projects\Personal\kebunkumara\web-kebunkumara-payload\node_modules\next\dist\server\base-server.js:1506:24)
+              at async DevServer.renderToResponseImpl (C:\Projects\Personal\kebunkumara\web-kebunkumara-payload\node_modules\next\dist\server\base-server.js:1556:32)
+              at async DevServer.pipeImpl (C:\Projects\Personal\kebunkumara\web-kebunkumara-payload\node_modules\next\dist\server\base-server.js:1043:25)
+              at async NextNodeServer.handleCatchallRenderRequest (C:\Projects\Personal\kebunkumara\web-kebunkumara-payload\node_modules\next\dist\server\next-server.js:338:17)
+              at async DevServer.handleRequestImpl (C:\Projects\Personal\kebunkumara\web-kebunkumara-payload\node_modules\next\dist\server\base-server.js:934:17)
+              at async C:\Projects\Personal\kebunkumara\web-kebunkumara-payload\node_modules\next\dist\server\dev\next-dev-server.js:394:20
+              at async Span.traceAsyncFn (C:\Projects\Personal\kebunkumara\web-kebunkumara-payload\node_modules\next\dist\trace\trace.js:164:20)
+              at async DevServer.handleRequest (C:\Projects\Personal\kebunkumara\web-kebunkumara-payload\node_modules\next\dist\server\dev\next-dev-server.js:390:24)
+              at async invokeRender (C:\Projects\Personal\kebunkumara\web-kebunkumara-payload\node_modules\next\dist\server\lib\router-server.js:253:21)
+              at async handleRequest (C:\Projects\Personal\kebunkumara\web-kebunkumara-payload\node_modules\next\dist\server\lib\router-server.js:452:24)
+              at async requestHandlerImpl (C:\Projects\Personal\kebunkumara\web-kebunkumara-payload\node_modules\next\dist\server\lib\router-server.js:501:13)
+              at async Server.requestListener (C:\Projects\Personal\kebunkumara\web-kebunkumara-payload\node_modules\next\dist\server\lib\start-server.js:225:13)
+      "data": null,
+      "isOperational": true,
+      "isPublic": true,
+      "status": 401,
+      "name": "AuthenticationError"
+    }
+ POST /api/users/login 401 in 35ms (next.js: 23ms, application-code: 13ms)
+[17:29:24] [31mERROR[39m: [36mThe email or password provided is incorrect.[39m
+    err: {
+      "type": "AuthenticationError",
+      "message": "The email or password provided is incorrect.",
+      "stack":
+          AuthenticationError: The email or password provided is incorrect.
+              at checkLoginPermission (file:///C:/Projects/Personal/kebunkumara/web-kebunkumara-payload/node_modules/payload/dist/auth/operations/login.js:23:15)
+              at loginOperation (file:///C:/Projects/Personal/kebunkumara/web-kebunkumara-payload/node_modules/payload/dist/auth/operations/login.js:155:5)
+              at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+              at async loginHandler (file:///C:/Projects/Personal/kebunkumara/web-kebunkumara-payload/node_modules/payload/dist/auth/endpoints/login.js:19:20)
+              at async handleEndpoints (file:///C:/Projects/Personal/kebunkumara/web-kebunkumara-payload/node_modules/payload/dist/utilities/handleEndpoints.js:198:26)
+              at async C:\Projects\Personal\kebunkumara\web-kebunkumara-payload\.next\dev\server\chunks\[root-of-the-server]__0mkqbcb._.js:5342:26
+              at async AppRouteRouteModule.do (C:\Projects\Personal\kebunkumara\web-kebunkumara-payload\node_modules\next\dist\compiled\next-server\app-route-turbo.runtime.dev.js:5:40435)
+              at async AppRouteRouteModule.handle (C:\Projects\Personal\kebunkumara\web-kebunkumara-payload\node_modules\next\dist\compiled\next-server\app-route-turbo.runtime.dev.js:5:47564)
+              at async responseGenerator (C:\Projects\Personal\kebunkumara\web-kebunkumara-payload\.next\dev\server\chunks\node_modules_next_0fo5yid._.js:10447:38)
+              at async AppRouteRouteModule.handleResponse (C:\Projects\Personal\kebunkumara\web-kebunkumara-payload\node_modules\next\dist\compiled\next-server\app-route-turbo.runtime.dev.js:1:227116)
+              at async handleResponse (C:\Projects\Personal\kebunkumara\web-kebunkumara-payload\.next\dev\server\chunks\node_modules_next_0fo5yid._.js:10510:32)
+              at async Module.handler (C:\Projects\Personal\kebunkumara\web-kebunkumara-payload\.next\dev\server\chunks\node_modules_next_0fo5yid._.js:10564:13)
+              at async DevServer.renderToResponseWithComponentsImpl (C:\Projects\Personal\kebunkumara\web-kebunkumara-payload\node_modules\next\dist\server\base-server.js:1454:9)
+              at async DevServer.renderPageComponent (C:\Projects\Personal\kebunkumara\web-kebunkumara-payload\node_modules\next\dist\server\base-server.js:1506:24)
+              at async DevServer.renderToResponseImpl (C:\Projects\Personal\kebunkumara\web-kebunkumara-payload\node_modules\next\dist\server\base-server.js:1556:32)
+              at async DevServer.pipeImpl (C:\Projects\Personal\kebunkumara\web-kebunkumara-payload\node_modules\next\dist\server\base-server.js:1043:25)
+              at async NextNodeServer.handleCatchallRenderRequest (C:\Projects\Personal\kebunkumara\web-kebunkumara-payload\node_modules\next\dist\server\next-server.js:338:17)
+              at async DevServer.handleRequestImpl (C:\Projects\Personal\kebunkumara\web-kebunkumara-payload\node_modules\next\dist\server\base-server.js:934:17)
+              at async C:\Projects\Personal\kebunkumara\web-kebunkumara-payload\node_modules\next\dist\server\dev\next-dev-server.js:394:20
+              at async Span.traceAsyncFn (C:\Projects\Personal\kebunkumara\web-kebunkumara-payload\node_modules\next\dist\trace\trace.js:164:20)
+              at async DevServer.handleRequest (C:\Projects\Personal\kebunkumara\web-kebunkumara-payload\node_modules\next\dist\server\dev\next-dev-server.js:390:24)
+              at async invokeRender (C:\Projects\Personal\kebunkumara\web-kebunkumara-payload\node_modules\next\dist\server\lib\router-server.js:253:21)
+              at async handleRequest (C:\Projects\Personal\kebunkumara\web-kebunkumara-payload\node_modules\next\dist\server\lib\router-server.js:452:24)
+              at async requestHandlerImpl (C:\Projects\Personal\kebunkumara\web-kebunkumara-payload\node_modules\next\dist\server\lib\router-server.js:501:13)
+              at async Server.requestListener (C:\Projects\Personal\kebunkumara\web-kebunkumara-payload\node_modules\next\dist\server\lib\start-server.js:225:13)
+      "data": null,
+      "isOperational": true,
+      "isPublic": true,
+      "status": 401,
+      "name": "AuthenticationError"
+    }
+ POST /api/users/login 401 in 37ms (next.js: 8ms, application-code: 29ms)
+ POST /api/users/login 200 in 107ms (next.js: 8ms, application-code: 99ms)
+ GET /admin 200 in 290ms (next.js: 14ms, application-code: 276ms)
+ GET /admin/collections/users 200 in 186ms (next.js: 9ms, application-code: 177ms)
+ GET /admin/collections/pages 200 in 358ms (next.js: 7ms, application-code: 351ms)
+ GET /admin/collections/plants 200 in 201ms (next.js: 5ms, application-code: 196ms)
+ GET /admin/collections/services 200 in 418ms (next.js: 6ms, application-code: 413ms)
+ GET /admin/collections/plantCategories 200 in 177ms (next.js: 11ms, application-code: 167ms)
+ GET /admin/collections/plants 200 in 167ms (next.js: 4ms, application-code: 163ms)
+ GET /admin/collections/plants/create 200 in 216ms (next.js: 9ms, application-code: 207ms)
+ GET /admin/collections/plants/1 200 in 832ms (next.js: 6ms, application-code: 826ms)
+ GET /admin/collections/plants/1 200 in 576ms (next.js: 10ms, application-code: 566ms)
+ GET /api/payload-preferences/collection-plants 200 in 50ms (next.js: 13ms, application-code: 38ms)
+ POST /api/payload-preferences/collection-plants 200 in 54ms (next.js: 5ms, application-code: 48ms)
+ GET /admin/collections/portfolios 200 in 239ms (next.js: 9ms, application-code: 230ms)
+ GET /admin/collections/portfolios/create 200 in 187ms (next.js: 4ms, application-code: 183ms)
+ GET /admin/collections/portfolios/1 200 in 583ms (next.js: 6ms, application-code: 578ms)
+ GET /admin/collections/portfolios/1 200 in 391ms (next.js: 8ms, application-code: 383ms)
+ GET /api/payload-preferences/collection-portfolios 200 in 49ms (next.js: 14ms, application-code: 36ms)
+ POST /api/payload-preferences/collection-portfolios 200 in 41ms (next.js: 4ms, application-code: 37ms)
+ GET /admin/collections/portfolios 200 in 200ms (next.js: 9ms, application-code: 191ms)
+ DELETE /api/portfolios?limit=0&where%5Band%5D%5B0%5D%5Bid%5D%5Bin%5D%5B0%5D=1 200 in 135ms (next.js: 12ms, application-code: 124ms)
+ GET /admin/collections/portfolios?depth=1&limit=10&page=1 200 in 446ms (next.js: 12ms, application-code: 434ms)
+ GET /admin/collections/portfolios?depth=1&limit=10&page=1 200 in 325ms (next.js: 8ms, application-code: 316ms)
+ GET /admin/collections/search 200 in 196ms (next.js: 4ms, application-code: 191ms)
+ GET /admin/collections/plantCategories 200 in 146ms (next.js: 9ms, application-code: 137ms)
+ GET /admin/collections/media 200 in 244ms (next.js: 4ms, application-code: 240ms)
+ GET /admin/collections/media/create 200 in 221ms (next.js: 4ms, application-code: 218ms)
+ GET /api/payload-preferences/collection-media 200 in 38ms (next.js: 15ms, application-code: 24ms)
+ POST /api/payload-preferences/collection-media 200 in 45ms (next.js: 5ms, application-code: 40ms)
+ GET /api/payload-preferences/nav 200 in 18ms (next.js: 8ms, application-code: 10ms)
+ POST /api/payload-preferences/nav 200 in 25ms (next.js: 3ms, application-code: 22ms)
+ POST /api/payload-preferences/nav 200 in 25ms (next.js: 2ms, application-code: 22ms)
+ GET /admin/collections/users 200 in 237ms (next.js: 11ms, application-code: 226ms)
+ GET /admin/collections/pages 200 in 304ms (next.js: 9ms, application-code: 295ms)
+ GET /admin/collections/media 200 in 215ms (next.js: 7ms, application-code: 208ms)
+ GET /admin/collections/plants 200 in 209ms (next.js: 9ms, application-code: 200ms)
+ GET /admin/collections/plantCategories 200 in 148ms (next.js: 6ms, application-code: 142ms)
+ POST /api/payload-preferences/nav 200 in 34ms (next.js: 8ms, application-code: 26ms)
+ GET /admin 200 in 230ms (next.js: 12ms, application-code: 218ms)
+ POST /api/payload-preferences/nav 200 in 30ms (next.js: 8ms, application-code: 22ms)
+ GET /admin/collections/portfolios 200 in 147ms (next.js: 9ms, application-code: 138ms)
+ GET /admin/collections/services 200 in 200ms (next.js: 5ms, application-code: 195ms)
+ GET /admin/collections/plantCategories 200 in 260ms (next.js: 6ms, application-code: 254ms)
+ GET /admin/collections/categories 200 in 265ms (next.js: 5ms, application-code: 260ms)
+ GET /admin/collections/pages 200 in 371ms (next.js: 8ms, application-code: 364ms)
+Generating import map
+✓ Compiled in 52ms
+✓ Compiled in 85ms
+No new imports found, skipping writing import map
+ GET /admin/login?redirect=%2Fadmin%2Fcollections%2Fmedia 200 in 3.3s (next.js: 586ms, application-code: 2.7s)
+ GET /admin/login?redirect=%2Fadmin%2Fcollections%2Fmedia 200 in 2.1s (next.js: 707ms, application-code: 1426ms)
+ GET /admin/login?redirect=%2Fadmin%2Fcollections%2Fmedia 200 in 1983ms (next.js: 81ms, application-code: 1902ms)
+ GET /admin/collections/pages?depth=1&limit=10 200 in 2.3s (next.js: 16ms, application-code: 2.3s)
+ GET /admin/collections/pages?depth=1&limit=10 200 in 3.4s (next.js: 554ms, application-code: 2.8s)
+ GET /admin/collections/pages?depth=1&limit=10 200 in 1257ms (next.js: 479ms, application-code: 779ms)
+ GET /admin/collections/pages?depth=1&limit=10 200 in 4.6s (next.js: 423ms, application-code: 4.2s)
+ GET /admin/login?redirect=%2Fadmin%2Fcollections%2Fmedia 200 in 874ms (next.js: 15ms, application-code: 859ms)
+ GET /admin/login?redirect=%2Fadmin%2Fcollections%2Fmedia 200 in 644ms (next.js: 5ms, application-code: 639ms)
+ GET /admin/login?redirect=%2Fadmin%2Fcollections%2Fmedia 200 in 461ms (next.js: 11ms, application-code: 450ms)
+ GET /admin/collections/pages?depth=1&limit=10 200 in 1950ms (next.js: 7ms, application-code: 1944ms)
+ GET /admin/login?redirect=%2Fadmin%2Fcollections%2Fmedia 200 in 212ms (next.js: 7ms, application-code: 205ms)
+ GET /admin/collections/media 200 in 502ms (next.js: 6ms, application-code: 496ms)
+ GET /admin/collections/media 200 in 306ms (next.js: 6ms, application-code: 300ms)
+ GET /api/users/me 200 in 361ms (next.js: 293ms, application-code: 68ms)
+ GET /api/payload-preferences/nav 200 in 38ms (next.js: 5ms, application-code: 33ms)
+ GET /api/users/me 200 in 25ms (next.js: 7ms, application-code: 18ms)
+[browser] Uncaught Error: Hydration failed because the server rendered text didn't match the client. As a result this tree will be regenerated on the client. This can happen if a SSR-ed Client Component used:
+
+- A server/client branch `if (typeof window !== 'undefined')`.
+- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
+- Date formatting in a user's locale which doesn't match the server.
+- External changing data without sending a snapshot of it along with the HTML.
+- Invalid HTML tag nesting.
+
+It can also happen if the client has a browser extension installed which messes with the HTML before React loaded.
+
+https://react.dev/link/hydration-mismatch
+
+  ...
+    <ScrollAndMaybeFocusHandler cacheNode={{rsc:{...}, ...}}>
+      <InnerScrollAndFocusHandlerOld focusAndScrollRef={{scrollRef:null, ...}} cacheNode={{rsc:{...}, ...}}>
+        <ErrorBoundary errorComponent={undefined} errorStyles={undefined} errorScripts={undefined}>
+          <LoadingBoundary name="/" loading={null}>
+            <HTTPAccessFallbackBoundary notFound={{...}} forbidden={undefined} unauthorized={undefined}>
+              <HTTPAccessFallbackErrorBoundary pathname="/admin/col..." notFound={{...}} forbidden={undefined} ...>
+                <RedirectBoundary>
+                  <RedirectErrorBoundary router={{...}}>
+                    <InnerLayoutRouter url={"/admin/c..."} tree={[...]} params={{}} cacheNode={{rsc:{...}, ...}} ...>
+                      <SegmentViewNode type="layout" pagePath="(payload)/...">
+                        <SegmentTrieNode>
+                        <link>
+                        <script>
+                        <script>
+                        <script>
+                        <script>
+                        <script>
+                        <script>
+                        <script>
+                        <script>
+                        <script>
+                        <script>
+                        <script>
+                        <script>
+                        <script>
+                        <script>
+                        <script>
+                        <script>
+                        <script>
+                        <PayloadLayout>
+                          <RootLayout>
+                            <html data-theme="light" dir="LTR" lang="en" suppressHydrationWarning={true}>
+                              <head>
+                                <style
+-                                 id="stndz-general-13"
+                                >
++                                 @layer payload-default, payload;
+-                                 {".view-id-ads, .view-id-advertisement, .view-image-ads, .view-site-ads, .view_ad,..."}
+                              ...
+                    ...
+        ...
+
+    at <unknown> (https://react.dev/link/hydration-mismatch)
+    at style (<anonymous>)
+    at PayloadLayout (src\app\(payload)\layout.tsx:21:5)
+  19 | export default function PayloadLayout({ children }: { children: React.ReactNode }) {
+  20 |   return (
+> 21 |     <RootLayout
+     |     ^
+  22 |       config={config}
+  23 |       htmlProps={{ suppressHydrationWarning: true }}
+  24 |       bodyProps={{ suppressHydrationWarning: true }}
+ GET /admin/collections/plants 200 in 373ms (next.js: 15ms, application-code: 358ms)
+ GET /admin/collections/plants/12 200 in 353ms (next.js: 7ms, application-code: 345ms)
+ GET /api/payload-preferences/collection-plants 200 in 42ms (next.js: 12ms, application-code: 30ms)
+ POST /api/plantCategories 200 in 37ms (next.js: 4ms, application-code: 32ms)
+ GET /admin/collections/plantCategories 200 in 179ms (next.js: 9ms, application-code: 170ms)
+ GET /api/payload-preferences/nav 200 in 58ms (next.js: 11ms, application-code: 47ms)
+ GET /admin/collections/plantCategories 200 in 303ms (next.js: 19ms, application-code: 284ms)
+ POST /api/payload-preferences/nav 200 in 47ms (next.js: 9ms, application-code: 38ms)
+ POST /api/payload-preferences/nav 200 in 27ms (next.js: 3ms, application-code: 24ms)
+ GET /admin/collections/contactSubmissions 200 in 292ms (next.js: 12ms, application-code: 279ms)
+ GET /admin/collections/services 200 in 284ms (next.js: 5ms, application-code: 279ms)
+ GET /admin/collections/plantCategories 200 in 178ms (next.js: 6ms, application-code: 172ms)
+ GET /admin/collections/pages 200 in 568ms (next.js: 31ms, application-code: 537ms)
+ GET /admin/collections/pages/4 200 in 382ms (next.js: 6ms, application-code: 376ms)
+ GET /api/payload-preferences/collection-pages 200 in 51ms (next.js: 13ms, application-code: 37ms)
+ POST /api/payload-preferences/collection-pages 200 in 45ms (next.js: 5ms, application-code: 40ms)
+ GET /admin/collections/posts 200 in 210ms (next.js: 9ms, application-code: 201ms)
+ GET /api/users?depth=0&limit=250&where%5Bid%5D%5Bin%5D=2& 200 in 35ms (next.js: 12ms, application-code: 23ms)
+ GET /admin/collections/posts/6 200 in 217ms (next.js: 4ms, application-code: 213ms)
+ GET /api/payload-preferences/collection-posts 200 in 21ms (next.js: 3ms, application-code: 18ms)
+ POST /api/categories 200 in 45ms (next.js: 4ms, application-code: 42ms)
+ POST /api/users 200 in 33ms (next.js: 4ms, application-code: 29ms)
+ POST /api/payload-preferences/collection-posts 200 in 35ms (next.js: 3ms, application-code: 32ms)
+ GET /admin/globals/header 200 in 392ms (next.js: 9ms, application-code: 383ms)
+ GET /api/payload-preferences/global-header 200 in 49ms (next.js: 15ms, application-code: 34ms)
+ POST /api/payload-preferences/global-header 200 in 47ms (next.js: 5ms, application-code: 42ms)
+ GET /admin/globals/footer 200 in 233ms (next.js: 4ms, application-code: 229ms)
+ GET /api/payload-preferences/global-footer 200 in 19ms (next.js: 3ms, application-code: 15ms)
+ POST /api/payload-preferences/global-footer 200 in 37ms (next.js: 4ms, application-code: 33ms)
+ GET /admin/globals/siteSettings 200 in 287ms (next.js: 17ms, application-code: 270ms)
+ GET /api/payload-preferences/global-siteSettings 200 in 29ms (next.js: 4ms, application-code: 26ms)
+ POST /api/payload-preferences/global-siteSettings 200 in 78ms (next.js: 23ms, application-code: 55ms)
+ GET /admin/collections/plantCategories 200 in 146ms (next.js: 9ms, application-code: 137ms)
+ GET /admin/collections/plants 200 in 221ms (next.js: 5ms, application-code: 216ms)
+ GET /admin/collections/plants/12 200 in 526ms (next.js: 22ms, application-code: 504ms)
+ GET /api/payload-preferences/collection-plants 200 in 44ms (next.js: 12ms, application-code: 32ms)
+ POST /api/plantCategories 200 in 31ms (next.js: 4ms, application-code: 26ms)
+ POST /api/payload-preferences/nav 200 in 31ms (next.js: 7ms, application-code: 23ms)
+ POST /api/payload-preferences/nav 200 in 26ms (next.js: 3ms, application-code: 24ms)
+ GET /admin/collections/users 200 in 261ms (next.js: 14ms, application-code: 247ms)
+ POST /api/payload-preferences/nav 200 in 39ms (next.js: 4ms, application-code: 35ms)
+ GET /admin 200 in 276ms (next.js: 7ms, application-code: 270ms)
+ POST /api/payload-preferences/nav 200 in 84ms (next.js: 8ms, application-code: 75ms)
+ GET /admin/collections/posts 200 in 278ms (next.js: 11ms, application-code: 267ms)
+ GET /api/users?depth=0&limit=250&where%5Bid%5D%5Bin%5D=2& 200 in 31ms (next.js: 4ms, application-code: 27ms)
+ GET /admin 200 in 547ms (next.js: 7ms, application-code: 540ms)
+ GET /admin/collections/plantCategories 200 in 215ms (next.js: 9ms, application-code: 206ms)
+ GET /admin/collections/plants 200 in 286ms (next.js: 4ms, application-code: 282ms)

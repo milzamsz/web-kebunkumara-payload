@@ -1,0 +1,80 @@
+---
+description: ALWAYS apply these three security patterns. No exceptions.
+globs: ["src/**/*.ts", "src/**/*.tsx"]
+alwaysApply: true
+---
+
+# Critical Security Patterns — Apply Without Exception
+
+## 1. Local API Access Control
+
+The Local API bypasses access control by default (`overrideAccess: true`).
+
+When passing a `user` to any Local API call, **ALWAYS** set `overrideAccess: false`:
+
+```ts
+// ✅ CORRECT
+await payload.find({
+  collection: 'posts',
+  user: req.user,
+  overrideAccess: false,
+})
+
+// ❌ WRONG — user is passed but access control is silently bypassed
+await payload.find({
+  collection: 'posts',
+  user: req.user,
+})
+```
+
+**Exception**: Intentional server-side admin operations (cron jobs, seed scripts) with no user context may omit `overrideAccess`.
+
+---
+
+## 2. Transaction Safety in Hooks
+
+PostgreSQL transactions require the `req` object to be threaded through all nested operations.
+
+**ALWAYS pass `req`** to any operation called inside a hook:
+
+```ts
+// ✅ CORRECT — maintains transaction atomicity
+async ({ doc, req }) => {
+  await req.payload.update({
+    collection: 'pages',
+    id: doc.id,
+    data: { updatedAt: new Date() },
+    req, // ← required
+  })
+}
+
+// ❌ WRONG — child operation runs in a separate transaction
+async ({ doc, req }) => {
+  await req.payload.update({
+    collection: 'pages',
+    id: doc.id,
+    data: { updatedAt: new Date() },
+    // missing req!
+  })
+}
+```
+
+---
+
+## 3. Preventing Infinite Hook Loops
+
+Hooks that update the same collection they're triggered by will recurse infinitely. Use context flags:
+
+```ts
+async ({ doc, req, context }) => {
+  if (context.triggerDepth) return  // ← stop recursion
+
+  await req.payload.update({
+    collection: 'posts',
+    id: doc.id,
+    data: { computed: calculateValue(doc) },
+    req,
+    context: { triggerDepth: true },  // ← set flag before recursive call
+  })
+}
+```
