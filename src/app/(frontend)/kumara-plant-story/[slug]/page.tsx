@@ -84,14 +84,32 @@ export default async function PlantDetailPage({
     if (result.docs.length > 0) {
       const doc = result.docs[0];
       const img = doc.mainPhoto;
-      const galleryUrls = (doc.gallery ?? [])
-        .map((g: any) => (typeof g.image === "object" ? g.image?.url : null))
-        .filter(Boolean) as string[];
-      const typeRel = (doc.plantType as any[])?.[0];
-      const typeName = typeof typeRel === "object" && typeRel !== null ? typeRel.name ?? "" : "";
+      const galleryValue = doc.gallery as unknown;
+      const galleryUrls = (Array.isArray(galleryValue) ? galleryValue : [])
+        .map((g) => {
+          const imageValue =
+            typeof g === "object" && g !== null && "image" in g
+              ? (g as { image?: unknown }).image
+              : null;
+          return typeof imageValue === "object" && imageValue !== null && "url" in imageValue
+            ? ((imageValue as { url?: string | null }).url ?? null)
+            : null;
+        })
+        .filter((url): url is string => typeof url === "string" && url.length > 0);
+
+      const plantTypeValue = doc.plantType as unknown;
+      const typeRel = Array.isArray(plantTypeValue) ? plantTypeValue[0] : null;
+      const typeName =
+        typeof typeRel === "object" && typeRel !== null && "name" in typeRel
+          ? String((typeRel as { name?: unknown }).name ?? "")
+          : "";
       const care = Object.entries(doc.careGuide ?? {})
         .filter(([, v]) => v)
         .map(([key, text]) => ({ icon: CARE_ICONS[key] ?? "eco", text: text as string }));
+      const cmsMainPhotoUrl =
+        typeof img === "object" && img !== null && "url" in img
+          ? (img as { url?: string | null }).url ?? null
+          : null;
       plant = {
         ...plant,
         id: doc.slug ?? String(doc.id),
@@ -100,7 +118,7 @@ export default async function PlantDetailPage({
         category: typeName as FallbackPlant["category"],
         family: doc.plantFamily ?? plant?.family,
         origin: doc.origin ?? plant?.origin,
-        image: (typeof img === "object" && img !== null ? (img as any).url : null) ?? plant?.image ?? "",
+        image: cmsMainPhotoUrl ?? plant?.image ?? "",
         gallery: galleryUrls.length > 0 ? galleryUrls : plant?.gallery,
         care,
         benefits: plant?.benefits ?? [],

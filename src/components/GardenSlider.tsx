@@ -75,11 +75,6 @@ export function GardenSlider() {
                   sizes="(max-width: 768px) 100vw, 50vw"
                   priority={index === 0}
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-90 flex items-end p-8">
-                  <p className="text-white font-serif text-2xl italic tracking-wide">
-                    {image.caption}
-                  </p>
-                </div>
               </div>
             </div>
           ))}

@@ -26,8 +26,8 @@ async function resolveProduct(slug: string) {
         const doc = result.docs[0];
         const img = doc.coverImage;
         const cmsImage =
-          typeof img === "object" && img !== null
-            ? (img as any).url ?? null
+          typeof img === "object" && img !== null && "url" in img
+            ? (img as { url?: string | null }).url ?? null
             : null;
         return {
           ...(fallback ?? {

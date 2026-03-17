@@ -26,11 +26,11 @@ type SiteSettingsGlobal = {
 };
 
 export default async function ContactPage() {
-    const email = fallbackContactDetails.email;
+    const email = "kebunkumara@gmail.com";
     const address = fallbackContactDetails.address;
 
     // Contact page hero data
-    const heroTitle = "Let's Grow Together";
+    const heroTitle = "Contact";
     const heroDescription = "We are here to help you reconnect with nature. Reach out for collaborations, inquiries, or just to say hello.";
     const heroImage = null;
 
@@ -63,16 +63,13 @@ export default async function ContactPage() {
                 className="relative pt-40 pb-20 w-full overflow-hidden flex flex-col items-center justify-center min-h-[60vh] text-center"
                 style={{
                     backgroundColor: "#FAF9F6",
-                    backgroundImage: heroImage ? `url("${heroImage}")` : `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%232D3A26' fill-opacity='0.1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
-                    backgroundSize: heroImage ? 'cover' : 'auto',
-                    backgroundPosition: 'center',
+                    backgroundImage: heroImage ? `url("${heroImage}")` : "none",
+                    backgroundSize: heroImage ? "cover" : undefined,
+                    backgroundPosition: heroImage ? "center" : undefined,
                 }}
             >
                 {/* Overlay for better readability if background image exists */}
                 {heroImage && <div className="absolute inset-0 bg-[#FAF9F6]/60 z-0" />}
-
-                {/* Gradient overlay */}
-                <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#FAF9F6]/20 to-[#FAF9F6] z-0" />
 
                 <div className="relative z-10 px-4 max-w-4xl mx-auto">
                     <h1 className="font-display text-5xl md:text-7xl lg:text-8xl text-[#2D3A26] mb-8 leading-tight">

@@ -39,7 +39,7 @@ export function ProgramImageSlider({ images, alt }: ProgramImageSliderProps) {
 
   return (
     <div 
-      className="relative w-full h-[350px] overflow-hidden rounded-3xl group"
+      className="relative w-full h-[520px] sm:h-[620px] lg:h-[720px] overflow-hidden group"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >

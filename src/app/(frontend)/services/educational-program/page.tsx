@@ -51,7 +51,10 @@ export default async function ProgramsPage() {
                         ...fp,
                         title: cms.name,
                         description: cms.shortDescription ?? fp.description,
-                        image: (typeof img === "object" && img !== null ? (img as any).url : null) ?? fp.image,
+                        image:
+                            (typeof img === "object" && img !== null && "url" in img
+                                ? (img as { url?: string | null }).url ?? null
+                                : null) ?? fp.image,
                     };
                 });
             }
@@ -65,10 +68,10 @@ export default async function ProgramsPage() {
 
             {/* ─── Programs List ──────────────────────────────────── */}
             <section className="py-24 bg-[#F7F5EF]">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-20">
+                <div className="w-full space-y-0">
                     {/* Public Workshops */}
-                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-                        <div className="overflow-hidden rounded-3xl shadow-xl group">
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-0 items-stretch">
+                        <div className="overflow-hidden group">
                             <Link href="/services/educational-program/public-workshops">
                                 <ProgramImageSlider 
                                     images={[
@@ -81,7 +84,7 @@ export default async function ProgramsPage() {
                             </Link>
                         </div>
 
-                        <div>
+                        <div className="px-4 sm:px-6 lg:px-12 py-10 lg:py-0 lg:flex lg:flex-col lg:justify-center">
                             {/* Icon removed as per request */}
                             
                             <Link href="/services/educational-program/public-workshops">
@@ -115,9 +118,9 @@ export default async function ProgramsPage() {
                     </div>
 
                     {/* Group & Corporate Events (formerly Company Programs) */}
-                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center lg:direction-rtl">
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-0 items-stretch lg:direction-rtl">
                         <div className="lg:order-2">
-                            <div className="overflow-hidden rounded-3xl shadow-xl group">
+                            <div className="overflow-hidden group">
                                 <Link href="/services/educational-program/company-programs">
                                     <ProgramImageSlider
                                         images={[
@@ -131,7 +134,7 @@ export default async function ProgramsPage() {
                             </div>
                         </div>
 
-                        <div className="lg:order-1">
+                        <div className="lg:order-1 px-4 sm:px-6 lg:px-12 py-10 lg:py-0 lg:flex lg:flex-col lg:justify-center">
                             {/* Icon removed as per request */}
                             
                             <Link href="/services/educational-program/company-programs">
@@ -172,10 +175,11 @@ export default async function ProgramsPage() {
                     {programs.slice(2).filter(program => program.slug !== "holiday").map((program, i) => (
                         <div
                             key={i + 2}
-                            className={`grid grid-cols-1 lg:grid-cols-2 gap-12 items-center ${i % 2 === 0 ? "" : "lg:direction-rtl"}`}
+                            id={program.slug === "nature-playschool" ? "holiday-program" : undefined}
+                            className={`grid grid-cols-1 lg:grid-cols-2 gap-0 items-stretch ${i % 2 === 0 ? "" : "lg:direction-rtl"}`}
                         >
                             <div className={`${i % 2 === 0 ? "" : "lg:order-2"}`}>
-                                <div className="overflow-hidden rounded-3xl shadow-xl group">
+                                <div className="overflow-hidden group">
                                     <Link href={`/services/educational-program/${program.slug}`}>
                                         {program.slug === "school-programs" ? (
                                             <ProgramImageSlider
@@ -202,7 +206,7 @@ export default async function ProgramsPage() {
                                                     alt={program.title}
                                                     width={600}
                                                     height={400}
-                                                    className="w-full h-[350px] object-cover group-hover:scale-105 transition-transform duration-700"
+                                                    className="w-full h-[520px] sm:h-[620px] lg:h-[720px] object-cover group-hover:scale-105 transition-transform duration-700"
                                                 />
                                             )
                                         )}
@@ -210,7 +214,7 @@ export default async function ProgramsPage() {
                                 </div>
                             </div>
 
-                            <div className={`${i % 2 === 0 ? "" : "lg:order-1"}`}>
+                            <div className={`${i % 2 === 0 ? "" : "lg:order-1"} px-4 sm:px-6 lg:px-12 py-10 lg:py-0 lg:flex lg:flex-col lg:justify-center`}>
                                 {/* Icon removed as per request */}
 
                                 <Link href={`/services/educational-program/${program.slug}`}>

@@ -48,8 +48,12 @@ export default async function KumaraPlantStoryPage() {
             if (result.docs.length > 0) {
                 plants = result.docs.map((doc) => {
                     const img = doc.mainPhoto;
-                    const typeRel = (doc.plantType as any[])?.[0];
-                    const typeName = typeof typeRel === "object" && typeRel !== null ? typeRel.name ?? "" : "";
+                    const plantTypeValue = doc.plantType as unknown;
+                    const typeRel = Array.isArray(plantTypeValue) ? plantTypeValue[0] : null;
+                    const typeName =
+                        typeof typeRel === "object" && typeRel !== null && "name" in typeRel
+                            ? String((typeRel as { name?: unknown }).name ?? "")
+                            : "";
                     const care = Object.entries(doc.careGuide ?? {})
                         .filter(([, v]) => v)
                         .map(([key, text]) => ({ icon: CARE_ICONS[key] ?? "eco", text: text as string }));
@@ -58,7 +62,10 @@ export default async function KumaraPlantStoryPage() {
                         name: doc.commonName,
                         latin: doc.scientificName,
                         category: (typeName.charAt(0).toUpperCase() + typeName.slice(1)) as Plant["category"],
-                        image: typeof img === "object" && img !== null ? (img as any).url ?? null : null,
+                        image:
+                            typeof img === "object" && img !== null && "url" in img
+                                ? (img as { url?: string | null }).url ?? null
+                                : null,
                         family: doc.plantFamily ?? undefined,
                         origin: doc.origin ?? undefined,
                         care,

@@ -21,7 +21,6 @@ export default function PayloadLayout({ children }: { children: React.ReactNode 
     <RootLayout
       config={config}
       htmlProps={{ suppressHydrationWarning: true }}
-      bodyProps={{ suppressHydrationWarning: true }}
       importMap={importMap}
       serverFunction={serverFunction}
     >

@@ -54,9 +54,6 @@ export default function KumaraPlantStoryClient({ plants }: KumaraPlantStoryClien
                         <h1 className="font-display text-4xl md:text-5xl text-[#4a6741] font-bold leading-tight">
                             Kumara Plant Story
                         </h1>
-                        <p className="mt-2 text-gray-500 max-w-2xl mx-auto font-light text-lg">
-                            A comprehensive catalog of {plants.length} species from our regenerative ecosystems.
-                        </p>
                     </div>
 
                     <div className="w-full flex flex-col items-center gap-4">

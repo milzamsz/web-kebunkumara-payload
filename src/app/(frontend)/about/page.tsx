@@ -29,6 +29,12 @@ export default function AboutPage() {
     const timeline = fallbackTimeline;
     const values = fallbackValues;
     const teamMembers = fallbackTeamMembers as TeamMember[];
+    const valueCardImages = [
+        "/images/generated/urban-garden-hero.png",
+        "/images/generated/landscaping-project.png",
+        "/images/generated/garden-tools-soil.png",
+        "/images/generated/tropical-plant.png",
+    ];
 
     const hero = {
         title: "Sekelompok Anak Kota Haus Pengetahuan",
@@ -124,28 +130,31 @@ export default function AboutPage() {
                         <span className="text-[#4F772D] font-medium tracking-wider uppercase text-sm mb-3 block">
                             Nilai-Nilai Kami
                         </span>
-                        <h2 className="text-3xl sm:text-4xl font-display font-bold text-gray-900">
-                            Apa yang Kami Percaya
-                        </h2>
                     </div>
 
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                         {values.map((value, i) => (
                             <div
                                 key={i}
-                                className="group text-center p-8 rounded-2xl bg-[#F7F5EF] hover:bg-[#4F772D] transition-all duration-500 hover:-translate-y-2 hover:shadow-xl"
+                                className="group relative overflow-hidden rounded-2xl bg-stone-200 aspect-[3/4] ring-1 ring-black/10 shadow-sm hover:shadow-xl transition-all duration-500"
                             >
-                                <div className="w-16 h-16 mx-auto rounded-2xl bg-[#4F772D]/10 group-hover:bg-white/20 flex items-center justify-center mb-5 transition-colors duration-500">
-                                    <span className="material-symbols-outlined text-3xl text-[#4F772D] group-hover:text-white transition-colors duration-500">
-                                        {value.icon}
-                                    </span>
+                                <Image
+                                    src={valueCardImages[i % valueCardImages.length]}
+                                    alt={value.title}
+                                    fill
+                                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                                    className="object-cover scale-[1.02] group-hover:scale-[1.06] transition-transform duration-700"
+                                    priority={i === 0}
+                                />
+                                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/25 to-black/20" />
+                                <div className="absolute inset-0 p-6 flex flex-col justify-between">
+                                    <h3 className="font-display text-2xl sm:text-3xl font-bold text-white leading-tight">
+                                        {value.title}
+                                    </h3>
+                                    <p className="text-white/90 text-sm leading-relaxed max-w-[34ch]">
+                                        {value.description}
+                                    </p>
                                 </div>
-                                <h3 className="text-lg font-bold text-gray-900 group-hover:text-white mb-2 transition-colors duration-500">
-                                    {value.title}
-                                </h3>
-                                <p className="text-gray-600 group-hover:text-white/80 text-sm leading-relaxed transition-colors duration-500">
-                                    {value.description}
-                                </p>
                             </div>
                         ))}
                     </div>
@@ -235,7 +244,6 @@ export default function AboutPage() {
             {/* ─── CTA ───────────────────────────────────────────── */}
             <section className="py-24 bg-[#4F772D]">
                 <div className="max-w-3xl mx-auto px-4 sm:px-6 text-center text-white">
-                    <span className="material-symbols-outlined text-5xl text-white/60 mb-6 block">handshake</span>
                     <h2 className="text-3xl sm:text-4xl font-display font-bold mb-6">
                         {cta?.title ?? "Ayo Berkolaborasi!"}
                     </h2>

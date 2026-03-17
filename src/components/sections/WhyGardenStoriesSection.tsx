@@ -58,7 +58,7 @@ const stories: Story[] = [
       "Our seasonal programs designed to reconnect children with nature. Through hands-on activities, kids learn the magic of growing food and the importance of caring for our planet.",
     image: "https://images.unsplash.com/photo-1502086223501-7ea6ecd79368?q=80&w=2000&auto=format&fit=crop", // Kids gardening
     linkText: "JOIN PROGRAM",
-    linkUrl: "/services/educational-program/holiday",
+    linkUrl: "/services/educational-program#holiday-program",
     color: "#b45309",
   },
 ];
@@ -87,27 +87,10 @@ export function WhyGardenStoriesSection() {
 
         {/* Main Content Area */}
         <div className="relative">
-          {/* Tabs / Navigation Pills */}
-          <div className="flex flex-wrap justify-center gap-4 mb-8 z-10 relative">
-            {stories.map((story, index) => (
-              <button
-                key={story.id}
-                onClick={() => setActiveStoryIndex(index)}
-                className={`px-6 py-2 rounded-full text-sm font-bold tracking-wider transition-all duration-300 border-2 ${
-                  index === activeStoryIndex
-                    ? "bg-white text-gray-900 border-white shadow-lg scale-105"
-                    : "bg-transparent text-gray-500 border-gray-300 hover:border-gray-400 hover:bg-white/50"
-                }`}
-              >
-                {story.label}
-              </button>
-            ))}
-          </div>
-
           {/* Image Container */}
-          <div className="relative w-full aspect-[16/9] lg:aspect-[21/9] group">
+          <div className="relative w-full h-[520px] sm:h-[620px] lg:h-[760px] group">
             {/* Main Image Wrapper with Overflow Hidden */}
-            <div className="absolute inset-0 rounded-2xl overflow-hidden shadow-2xl">
+            <div className="absolute inset-0 rounded-[5px] overflow-hidden shadow-2xl">
               <Image
                 src={activeStory.image}
                 alt={activeStory.title}
@@ -119,65 +102,80 @@ export function WhyGardenStoriesSection() {
               {/* Dark Overlay */}
               <div className="absolute inset-0 bg-black/10"></div>
 
+              {/* Tabs / Navigation Pills (Inside Image) */}
+              <div className="absolute top-6 left-1/2 -translate-x-1/2 z-30 w-[calc(100%-2rem)] max-w-5xl">
+                <div className="flex flex-wrap justify-center gap-4">
+                  {stories.map((story, index) => (
+                    <button
+                      key={story.id}
+                      onClick={() => setActiveStoryIndex(index)}
+                      className={`px-6 py-2 rounded-[5px] text-sm font-bold tracking-wider transition-all duration-300 border-2 backdrop-blur-sm ${
+                        index === activeStoryIndex
+                          ? "bg-white text-gray-900 border-white shadow-lg scale-105"
+                          : "bg-white/70 text-gray-800 border-white/30 hover:bg-white/85 hover:scale-105"
+                      }`}
+                    >
+                      {story.label}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
               {/* Navigation Arrows (Desktop) */}
               <button 
                 onClick={handlePrev}
-                className="absolute left-4 top-1/2 -translate-y-1/2 w-12 h-12 bg-white/90 rounded-full flex items-center justify-center hover:bg-white transition-colors shadow-lg z-20 hidden lg:flex"
+                className="absolute left-4 top-1/2 -translate-y-1/2 w-12 h-12 bg-white/90 rounded-[5px] flex items-center justify-center hover:bg-white transition-colors shadow-lg z-20 hidden lg:flex"
                 aria-label="Previous story"
               >
                 <ChevronLeft className="w-6 h-6 text-gray-900" />
               </button>
               <button 
                 onClick={handleNext}
-                className="absolute right-4 top-1/2 -translate-y-1/2 w-12 h-12 bg-white/90 rounded-full flex items-center justify-center hover:bg-white transition-colors shadow-lg z-20 hidden lg:flex"
+                className="absolute right-4 top-1/2 -translate-y-1/2 w-12 h-12 bg-white/90 rounded-[5px] flex items-center justify-center hover:bg-white transition-colors shadow-lg z-20 hidden lg:flex"
                 aria-label="Next story"
               >
                 <ChevronRight className="w-6 h-6 text-gray-900" />
               </button>
-            </div>
 
-            {/* Floating Card Content - Outside overflow hidden */}
-            <div className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2 w-[90%] lg:w-[600px] z-30">
-              <div className="bg-white p-8 rounded-xl shadow-xl text-center relative overflow-hidden">
-                {/* Top Colored Bar */}
-                <div 
-                  className="absolute top-0 left-0 w-full h-2" 
-                  style={{ backgroundColor: activeStory.color }}
-                />
-                
-                <h3 className="font-serif text-2xl text-gray-900 mb-4 mt-2">
-                  {activeStory.title}
-                </h3>
-                <p className="text-gray-600 mb-8 leading-relaxed">
-                  {activeStory.description}
-                </p>
-                
-                <Link 
-                  href={activeStory.linkUrl}
-                  className="inline-flex items-center text-sm font-bold tracking-widest uppercase hover:underline underline-offset-4 decoration-2 decoration-[#4F772D]"
-                  style={{ color: activeStory.color }}
-                >
-                  {activeStory.linkText}
-                  <ArrowRight className="w-4 h-4 ml-2" />
-                </Link>
+              {/* Text Content (Inside Image) */}
+              <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-30 w-[calc(100%-2rem)] max-w-2xl">
+                <div className="bg-white/90 backdrop-blur-sm p-6 md:p-8 rounded-[5px] shadow-xl text-center relative overflow-hidden">
+                  <div
+                    className="absolute top-0 left-0 w-full h-2"
+                    style={{ backgroundColor: activeStory.color }}
+                  />
+
+                  <h3 className="font-serif text-2xl md:text-3xl text-gray-900 mb-4 mt-2">
+                    {activeStory.title}
+                  </h3>
+                  <p className="text-gray-700 mb-8 leading-relaxed">
+                    {activeStory.description}
+                  </p>
+
+                  <Link
+                    href={activeStory.linkUrl}
+                    className="inline-flex items-center text-sm font-bold tracking-widest uppercase hover:underline underline-offset-4 decoration-2 decoration-[#4F772D]"
+                    style={{ color: activeStory.color }}
+                  >
+                    {activeStory.linkText}
+                    <ArrowRight className="w-4 h-4 ml-2" />
+                  </Link>
+                </div>
               </div>
             </div>
           </div>
-
-          {/* Spacer for the floating card */}
-          <div className="h-32 lg:h-24"></div>
 
           {/* Mobile Navigation Controls */}
           <div className="flex justify-center gap-4 mt-8 lg:hidden">
             <button 
               onClick={handlePrev}
-              className="w-10 h-10 bg-white border border-gray-200 rounded-full flex items-center justify-center hover:bg-gray-50 transition-colors shadow-sm"
+              className="w-10 h-10 bg-white border border-gray-200 rounded-[5px] flex items-center justify-center hover:bg-gray-50 transition-colors shadow-sm"
             >
               <ChevronLeft className="w-5 h-5 text-gray-600" />
             </button>
             <button 
               onClick={handleNext}
-              className="w-10 h-10 bg-white border border-gray-200 rounded-full flex items-center justify-center hover:bg-gray-50 transition-colors shadow-sm"
+              className="w-10 h-10 bg-white border border-gray-200 rounded-[5px] flex items-center justify-center hover:bg-gray-50 transition-colors shadow-sm"
             >
               <ChevronRight className="w-5 h-5 text-gray-600" />
             </button>

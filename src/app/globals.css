@@ -70,6 +70,10 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+div:not([role="button"]):not([role="tab"]):not([role="menuitem"]) {
+  border-radius: 5px;
+}
+
 /* ─── Typography ─────────────────────────────────────────── */
 .font-serif {
   font-family: var(--font-serif);

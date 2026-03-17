@@ -95,9 +95,8 @@ export default function HomePage() {
                 alt="Team gardening"
                 width={800}
                 height={600}
-                className="rounded-2xl shadow-2xl relative z-10 object-cover w-full h-[500px]"
+                className="rounded-[5px] shadow-2xl relative z-10 object-cover w-full h-[500px]"
               />
-              <div className="absolute -bottom-6 -right-6 w-3/4 h-3/4 border-2 border-[var(--primary)] rounded-2xl z-0 hidden md:block" />
             </div>
 
             {/* Text */}

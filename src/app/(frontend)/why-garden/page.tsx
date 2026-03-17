@@ -25,7 +25,7 @@ export default function WhyGardenPage() {
       </section>
 
       {/* 1. Main Why Garden Section (Intro) */}
-      <WhyGardenSection />
+      <WhyGardenSection variant="vertical" />
       
       {/* 2. Feedback / How We Work Section (Philosophy) */}
       <WhyGardenFeedbackSection />

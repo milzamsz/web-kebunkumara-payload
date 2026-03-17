@@ -20,11 +20,20 @@ export const metadata: Metadata = {
 
 type ProjectCard = (typeof fallbackProjects)[number];
 
-export default async function ProjectsPage() {
+type Args = {
+    searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
+};
+
+export default async function ProjectsPage({ searchParams }: Args) {
     let projects: ProjectCard[] = fallbackProjects;
 
     const filterTabs = fallbackProjectFilterTabs;
     const clientLogos = fallbackClientLogos;
+
+    const sp = await searchParams;
+    const rawFilter = sp.filter;
+    const activeFilter = Array.isArray(rawFilter) ? rawFilter[0] : rawFilter;
+    const selectedFilter = filterTabs.includes(activeFilter ?? "") ? activeFilter : "All";
 
     const phase = process.env.NEXT_PHASE;
     if (phase !== "phase-production-build") {
@@ -40,11 +49,16 @@ export default async function ProjectsPage() {
             if (result.docs.length > 0) {
                 projects = result.docs.map((doc) => {
                     const img = doc.coverImage;
+                    const slug = String(doc.slug ?? doc.id);
+                    const fallback = fallbackProjects.find((p) => p.slug === slug);
                     return {
-                        slug: doc.slug ?? String(doc.id),
-                        title: doc.projectName,
-                        category: doc.location ?? "Portfolio",
-                        image: typeof img === "object" && img !== null ? (img as any).url ?? null : null,
+                        slug,
+                        title: String(doc.projectName ?? ""),
+                        category: String(doc.location ?? "Portfolio"),
+                        image:
+                            typeof img === "object" && img !== null && "url" in img
+                                ? (img as { url?: string | null }).url ?? fallback?.image ?? "/images/projects-hero-garden.png"
+                                : fallback?.image ?? "/images/projects-hero-garden.png",
                     };
                 });
             }
@@ -52,6 +66,17 @@ export default async function ProjectsPage() {
             console.error("[Landscaping] Failed to fetch portfolios:", err);
         }
     }
+
+    const filteredProjects =
+        selectedFilter === "All"
+            ? projects
+            : projects.filter((p) => {
+                const category = String(p.category ?? "");
+                if (selectedFilter === "Edible Gardens") {
+                    return category.toLowerCase().includes("edible");
+                }
+                return category.toLowerCase() === selectedFilter.toLowerCase();
+            });
     return (
         <main>
             {/* ─── Hero ─────────────────────────────────────────── */}
@@ -71,26 +96,10 @@ export default async function ProjectsPage() {
 
                     <h1 className="font-serif text-5xl md:text-7xl lg:text-8xl font-bold text-white mb-6 leading-tight drop-shadow-lg">
                         Landscaping <br />
-                        <span className="italic font-light">Consultancy</span>
+                        <span>Consultancy</span>
                     </h1>
-                </div>
-            </section>
-
-            {/* ─── Intro ────────────────────────────────────────── */}
-            <section className="py-20 px-4 sm:px-6 lg:px-8 bg-[#f0efe9]">
-                <div className="max-w-4xl mx-auto text-center">
-                    <span className="material-symbols-outlined text-4xl text-[#4a6741] mb-4 block">
-                        spa
-                    </span>
-                    <h2 className="font-serif text-3xl md:text-4xl text-gray-900 mb-6">
-                        Restoring Nature in Urban Spaces
-                    </h2>
-                    <p className="text-lg text-gray-600 leading-relaxed">
-                        Our consultancy goes beyond aesthetics. We design living ecosystems.
-                        Whether it&apos;s a private residence, a school, or a corporate
-                        office, we integrate edible gardens, permaculture principles, and
-                        native biodiversity to create spaces that heal both the land and the
-                        people who inhabit it.
+                    <p className="text-lg md:text-xl text-gray-200 max-w-3xl mx-auto leading-relaxed">
+                        Regenerative landscape design-and-build consultancy that integrates food production, biodiversity, and sustainable systems into meaningful spaces.
                     </p>
                 </div>
             </section>
@@ -98,70 +107,67 @@ export default async function ProjectsPage() {
             {/* ─── Selected Projects ──────────────────────────────── */}
             <section
                 id="selected-projects"
-                className="py-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto"
+                className="py-12 bg-[#f0efe9]"
             >
-                <div className="flex justify-between items-end mb-12 border-b border-gray-200 pb-6">
-                    <div>
-                        <h3 className="font-serif text-4xl font-bold text-gray-900">
-                            Selected Projects
-                        </h3>
-
+                <div className="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+                    <div className="flex justify-between items-end mb-12 border-b border-gray-200 pb-6">
+                        <div>
+                            <h3 className="font-sans text-2xl md:text-3xl font-bold text-gray-900">
+                                Selected Projects
+                            </h3>
+                        </div>
+                        <div className="flex flex-wrap gap-2 justify-center md:justify-end">
+                            {filterTabs.map((tab) => (
+                                <Link
+                                    key={tab}
+                                    href={
+                                        tab === "All"
+                                            ? "/services/landscaping-consultancy#selected-projects"
+                                            : `/services/landscaping-consultancy?filter=${encodeURIComponent(tab)}#selected-projects`
+                                    }
+                                    className={`whitespace-nowrap px-4 py-2.5 text-xs font-bold uppercase tracking-widest rounded-full transition-all ${tab === selectedFilter
+                                        ? "bg-[#4a6741] text-white shadow-sm"
+                                        : "bg-white text-gray-600 border border-gray-200 hover:border-[#4a6741] hover:text-[#4a6741]"
+                                        }`}
+                                >
+                                    {tab}
+                                </Link>
+                            ))}
+                        </div>
                     </div>
-                    <div className="hidden md:flex gap-4">
-                        {filterTabs.map((tab, i) => (
-                            <button
-                                key={tab}
-                                className={`text-sm font-bold uppercase tracking-widest pb-1 transition-colors ${i === 0
-                                    ? "text-[#4a6741] border-b-2 border-[#4a6741]"
-                                    : "text-gray-400 hover:text-[#4a6741]"
-                                    }`}
-                            >
-                                {tab}
-                            </button>
-                        ))}
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 auto-rows-[300px] grid-flow-dense">
+                        {filteredProjects.map((project, index) => {
+                            const isFeatured = index === 0;
+                            const isTall = index % 2 !== 0;
+
+                            return (
+                                <Link
+                                    key={project.slug}
+                                    href={`/services/landscaping-consultancy/${project.slug}`}
+                                    className={`relative group overflow-hidden rounded-2xl block ${isFeatured ? "md:col-span-2 md:row-span-2" : ""
+                                        } ${!isFeatured && isTall ? "md:row-span-2" : ""}`}
+                                >
+                                    {project.image && (
+                                        <Image
+                                            src={project.image}
+                                            alt={project.title}
+                                            fill
+                                            className="object-cover transform group-hover:scale-105 transition-transform duration-700"
+                                        />
+                                    )}
+                                    <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6">
+                                        <span className="text-[#d4a373] text-xs uppercase tracking-widest mb-1 translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
+                                            {project.category}
+                                        </span>
+                                        <h4 className="text-white font-serif text-2xl translate-y-4 group-hover:translate-y-0 transition-transform duration-500 delay-75">
+                                            {project.title}
+                                        </h4>
+                                    </div>
+                                </Link>
+                            );
+                        })}
                     </div>
-                </div>
-
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 auto-rows-[300px] grid-flow-dense">
-                    {projects.map((project, index) => {
-                        const isFeatured = index === 0;
-                        const isTall = index % 2 !== 0;
-
-                        return (
-                            <Link
-                                key={project.slug}
-                                href={`/services/landscaping-consultancy/${project.slug}`}
-                                className={`relative group overflow-hidden rounded-2xl block ${isFeatured ? "md:col-span-2 md:row-span-2" : ""
-                                    } ${!isFeatured && isTall ? "md:row-span-2" : ""}`}
-                            >
-                                {project.image && (
-                                    <Image
-                                        src={project.image}
-                                        alt={project.title}
-                                        fill
-                                        className="object-cover transform group-hover:scale-105 transition-transform duration-700"
-                                    />
-                                )}
-                                <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6">
-                                    <span className="text-[#d4a373] text-xs uppercase tracking-widest mb-1 translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
-                                        {project.category}
-                                    </span>
-                                    <h4 className="text-white font-serif text-2xl translate-y-4 group-hover:translate-y-0 transition-transform duration-500 delay-75">
-                                        {project.title}
-                                    </h4>
-                                </div>
-                            </Link>
-                        );
-                    })}
-                </div>
-
-                <div className="text-center mt-12">
-                    <button className="inline-flex items-center gap-2 border-b border-gray-900 pb-1 text-gray-900 hover:text-[#4a6741] hover:border-[#4a6741] transition-all uppercase tracking-widest text-sm font-bold">
-                        View All Projects{" "}
-                        <span className="material-symbols-outlined text-sm">
-                            arrow_forward
-                        </span>
-                    </button>
                 </div>
             </section>
 

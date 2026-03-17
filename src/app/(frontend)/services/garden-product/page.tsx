@@ -56,8 +56,8 @@ export default async function GardenProductPage() {
             title: doc.name,
             description: doc.shortDescription ?? "",
             image:
-              typeof img === "object" && img !== null
-                ? (img as any).url ?? "/images/generated/garden-tools-soil.png"
+              typeof img === "object" && img !== null && "url" in img
+                ? (img as { url?: string | null }).url ?? "/images/generated/garden-tools-soil.png"
                 : "/images/generated/garden-tools-soil.png",
           };
         });

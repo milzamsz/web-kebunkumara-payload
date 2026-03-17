@@ -203,25 +203,28 @@ npm run generate:importmap   # Regenerate admin import map
 
 ## Vibe Coding Workflow — Frontend + CMS Sync
 
-When editing or creating **frontend pages/components** during a vibe coding session, always keep the CMS (Payload) in sync:
+**Default mode: Frontend-first, CMS manually.**
+AI only touches CMS files when the user explicitly says so (e.g. "also update the collection" or "sync CMS too").
 
-### If the frontend displays new content fields:
-1. Add the corresponding field(s) to the relevant Collection or Global in `src/collections/` or `src/globals/`
-2. Run `npm run generate:types` to regenerate `src/payload-types.ts`
-3. Update `src/lib/fallback-data.ts` with sensible fallback values for the new fields
-4. Upload/populate real content in the Payload admin panel (`http://localhost:3000/admin`) so the frontend renders correctly
+### Frontend-only session (default)
+- Edit UI, layout, styling, and component logic freely
+- Use `fallbackData` from `src/lib/fallback-data.ts` as the data source during vibe coding
+- Do **not** touch `src/collections/`, `src/globals/`, or `src/payload-types.ts` unless asked
 
-### If the frontend introduces a new content section or page:
-1. Create or update the relevant Collection/Global/Block to support the new content
-2. Add the block to `payload.config.ts` if it's a new block type
-3. Seed or manually enter sample data in Payload admin
-4. Ensure the frontend fetch uses `where: { _status: { equals: "published" } }` and has a `fallbackData` fallback
+### When the user says "sync CMS" or "update collection":
+1. Add/update fields in the relevant collection or global
+2. Run `npm run generate:types`
+3. Update `src/lib/fallback-data.ts` to match
 
-### Upload checklist (run after any frontend + CMS change):
-- [ ] Schema change → `npm run generate:types` + `npm run generate:importmap`
-- [ ] New images/media → upload via Payload admin → `Media` collection
-- [ ] New text content → enter via Payload admin → relevant collection
-- [ ] Verify page renders with real CMS data at `http://localhost:3000`
+### Manual upload checklist (user runs independently):
+- Schema changed → `npm run generate:types` + `npm run generate:importmap`
+- New media → upload in Payload admin → `Media` collection
+- New content → enter in Payload admin → relevant collection
+- Check at `http://localhost:3000`
+
+> Full checklist + field reference + logs: `docs/cms-upload-checklist.md`
+>
+> **After each vibe coding session**, add an entry to **Vibe Coding Edit History** in that file listing which files were changed and whether CMS was synced.
 
 ---
 

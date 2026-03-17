@@ -117,9 +117,9 @@ export default function Navbar({ global, header }: NavbarProps) {
                         <Image
                             src={logoUrl}
                             alt={global?.siteName ?? "Kebun Kumara"}
-                            width={140}
-                            height={54}
-                            className={`h-10 w-auto transition-all duration-300 ${scrolled ? "invert" : "drop-shadow-lg"
+                            width={180}
+                            height={70}
+                            className={`h-12 w-auto transition-all duration-300 ${scrolled ? "invert" : "drop-shadow-lg"
                                 }`}
                             priority
                         />

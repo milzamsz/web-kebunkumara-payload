@@ -6,21 +6,36 @@ import { getPayload } from "payload";
 import config from "@payload-config";
 import { fallbackBlogPostsDetail, type FallbackBlogPostDetail } from "@/lib/fallback-data";
 
-function lexicalToBlocks(content: any): FallbackBlogPostDetail["contentBlocks"] {
-    if (!content?.root?.children) return [];
-    return content.root.children
-        .map((node: any): FallbackBlogPostDetail["contentBlocks"][number] | null => {
-            if (node.type === "heading") {
-                const text = (node.children ?? []).map((c: any) => c.text ?? "").join("");
-                return text ? { type: "heading", text } : null;
-            }
-            if (node.type === "paragraph") {
-                const text = (node.children ?? []).map((c: any) => c.text ?? "").join("");
-                return text ? { type: "paragraph", text } : null;
-            }
-            return null;
+function lexicalToBlocks(content: unknown): FallbackBlogPostDetail["contentBlocks"] {
+    if (!content || typeof content !== "object") return [];
+    if (!("root" in content)) return [];
+    const root = (content as { root?: unknown }).root;
+    if (!root || typeof root !== "object" || !("children" in root)) return [];
+    const children = (root as { children?: unknown }).children;
+    if (!Array.isArray(children)) return [];
+
+    return children
+        .map((node): FallbackBlogPostDetail["contentBlocks"][number] | null => {
+            if (!node || typeof node !== "object") return null;
+            const type = (node as { type?: unknown }).type;
+            if (type !== "heading" && type !== "paragraph") return null;
+
+            const nodeChildren = (node as { children?: unknown }).children;
+            const parts = Array.isArray(nodeChildren)
+                ? nodeChildren.map((c) => {
+                    if (!c || typeof c !== "object" || !("text" in c)) return "";
+                    const t = (c as { text?: unknown }).text;
+                    return typeof t === "string" ? t : "";
+                })
+                : [];
+            const text = parts.join("");
+            if (!text) return null;
+            return type === "heading" ? { type: "heading", text } : { type: "paragraph", text };
         })
-        .filter((b: FallbackBlogPostDetail["contentBlocks"][number] | null): b is FallbackBlogPostDetail["contentBlocks"][number] => b !== null);
+        .filter(
+            (b: FallbackBlogPostDetail["contentBlocks"][number] | null): b is FallbackBlogPostDetail["contentBlocks"][number] =>
+                b !== null
+        );
 }
 
 export async function generateMetadata({
@@ -73,17 +88,30 @@ export default async function BlogPostPage({
             const doc = result.docs[0];
             const cat = doc.categories?.[0];
             const img = doc.featuredImage;
-            const authorRel = (doc as any).author;
+            const authorRel = (doc as { author?: unknown }).author;
             post = {
                 title: doc.title,
-                category: typeof cat === "object" && cat !== null ? (cat as any).name ?? "" : "",
+                category:
+                    typeof cat === "object" && cat !== null && "name" in cat
+                        ? String((cat as { name?: unknown }).name ?? "")
+                        : "",
                 date: doc.publishedAt ?? "",
                 readTime: doc.readingTime ? `${doc.readingTime} min read` : "",
-                heroImage: typeof img === "object" && img !== null ? (img as any).url ?? "" : "",
+                heroImage:
+                    typeof img === "object" && img !== null && "url" in img
+                        ? String((img as { url?: unknown }).url ?? "")
+                        : "",
                 author: {
-                    name: typeof authorRel === "object" && authorRel !== null
-                        ? `${authorRel.firstName ?? ""} ${authorRel.lastName ?? ""}`.trim() || authorRel.email
-                        : "Kebun Kumara",
+                    name:
+                        typeof authorRel === "object" && authorRel !== null
+                            ? (() => {
+                                const firstName = (authorRel as { firstName?: unknown }).firstName;
+                                const lastName = (authorRel as { lastName?: unknown }).lastName;
+                                const email = (authorRel as { email?: unknown }).email;
+                                const fullName = `${typeof firstName === "string" ? firstName : ""} ${typeof lastName === "string" ? lastName : ""}`.trim();
+                                return fullName || (typeof email === "string" ? email : "") || "Kebun Kumara";
+                            })()
+                            : "Kebun Kumara",
                     avatar: "",
                 },
                 contentBlocks: lexicalToBlocks(doc.content),

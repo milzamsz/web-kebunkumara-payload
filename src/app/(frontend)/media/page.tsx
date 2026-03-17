@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import Image from "next/image";
 
 export const metadata: Metadata = {
     title: "In The Media — Kebun Kumara",
@@ -21,6 +22,13 @@ interface MediaItem {
     source?: string;
     url?: string;
 }
+
+const mediaCardImages = [
+    "/images/generated/landscaping-team.png",
+    "/images/generated/urban-garden-hero.png",
+    "/images/generated/landscaping-project.png",
+    "/images/generated/garden-tools-soil.png",
+];
 
 const mediaItems: MediaItem[] = [
     {
@@ -82,51 +90,58 @@ export default function MediaPage() {
             {/* ─── Media List ───────────────────────────────────── */}
             <section className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pb-32">
                 <div className="space-y-12">
-                    {mediaItems.map((item, index) => (
-                        <article 
-                            key={index} 
-                            className="group relative bg-white border border-[#2D3A26]/10 p-8 md:p-10 rounded-lg shadow-sm hover:shadow-md transition-all duration-300"
+                    {mediaItems.map((item, index) => {
+                        const portal =
+                            item.url ? new URL(item.url).hostname.replace(/^www\./, "") : null;
+                        return (
+                        <article
+                            key={index}
+                            className="group bg-[#E9E5DA] border border-[#2D3A26]/10 rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-all duration-300"
                         >
-                            <div className="flex flex-col md:flex-row gap-6 md:gap-10 items-start">
-                                {/* Date & Source (Left on desktop) */}
-                                <div className="md:w-1/4 flex flex-col gap-2 shrink-0">
-                                    <span className="text-xs font-bold uppercase tracking-widest text-[#4a6741]">
-                                        {item.source}
-                                    </span>
-                                    <time className="text-sm text-gray-500 font-medium">
+                            <div className="grid grid-cols-1 md:grid-cols-[420px_1fr] gap-8 md:gap-12 p-6 md:p-10 items-start">
+                                <div>
+                                    <div className="relative w-full aspect-[4/3] bg-stone-200 overflow-hidden">
+                                        <Image
+                                            src={mediaCardImages[index % mediaCardImages.length]}
+                                            alt={item.title}
+                                            fill
+                                            sizes="(max-width: 768px) 100vw, 420px"
+                                            className="object-cover"
+                                            priority={index === 0}
+                                        />
+                                    </div>
+                                    <time className="mt-3 block text-sm italic text-gray-600">
                                         {item.date}
                                     </time>
                                 </div>
 
-                                {/* Content (Right on desktop) */}
-                                <div className="flex-grow">
-                                    <h2 className="font-serif text-2xl md:text-3xl font-bold text-gray-900 mb-4 group-hover:text-[#4a6741] transition-colors">
+                                <div className="text-gray-900">
+                                    <h2 className="font-serif text-2xl md:text-3xl font-bold tracking-tight mb-5">
                                         {item.title}
                                     </h2>
-                                    <p className="text-gray-600 font-light leading-relaxed mb-6">
-                                        {item.excerpt}
-                                    </p>
-                                    <span className="inline-flex items-center text-sm font-semibold text-[#4a6741] uppercase tracking-wider group-hover:translate-x-1 transition-transform">
-                                        Read Full Story
-                                        <svg className="w-4 h-4 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                                        </svg>
-                                    </span>
+                                    <div className="space-y-5 text-gray-800 leading-relaxed">
+                                        <p>{item.excerpt}</p>
+                                    </div>
+                                    {item.url && (
+                                        <div className="pt-6">
+                                            <Link
+                                                href={item.url}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className="inline-flex items-center gap-2 text-sm font-semibold text-[#2D3A26] underline decoration-[#2D3A26]/30 underline-offset-4 hover:decoration-[#2D3A26]"
+                                                aria-label={`Open ${portal ?? "news portal"} in a new tab`}
+                                            >
+                                                {portal ?? "Open article"}
+                                                <span className="material-symbols-outlined text-base leading-none">
+                                                    open_in_new
+                                                </span>
+                                            </Link>
+                                        </div>
+                                    )}
                                 </div>
                             </div>
-                            
-                            {/* Make whole card clickable if URL exists, otherwise just visual */}
-                            {item.url && (
-                                <Link 
-                                    href={item.url} 
-                                    className="absolute inset-0 z-10" 
-                                    aria-label={`Read more about ${item.title}`}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                />
-                            )}
                         </article>
-                    ))}
+                    )})}
                 </div>
             </section>
         </main>

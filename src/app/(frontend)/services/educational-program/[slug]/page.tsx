@@ -25,13 +25,22 @@ export function generateStaticParams() {
   }));
 }
 
+type Program = {
+  slug: string;
+  title: string;
+  description: string;
+  icon: string;
+  features: string[];
+  image?: string | null;
+};
+
 export default async function ProgramDetailPage({
   params,
 }: {
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  let program = fallbackPrograms.find((p) => p.slug === slug);
+  let program: Program | undefined = fallbackPrograms.find((p) => p.slug === slug) as unknown as Program | undefined;
 
   try {
     const payload = await getPayload({ config });
@@ -49,11 +58,24 @@ export default async function ProgramDetailPage({
     if (result.docs.length > 0) {
       const doc = result.docs[0];
       const img = doc.coverImage;
+      const base: Program =
+        program ??
+        {
+          slug,
+          title: "",
+          description: "",
+          image: null,
+          icon: "eco",
+          features: [],
+        };
       program = {
-        ...(program ?? { slug, icon: "eco", features: [] }),
+        ...base,
         title: doc.name,
-        description: doc.shortDescription ?? program?.description ?? "",
-        image: (typeof img === "object" && img !== null ? (img as any).url : null) ?? program?.image ?? null,
+        description: doc.shortDescription ?? base.description ?? "",
+        image:
+          (typeof img === "object" && img !== null && "url" in img
+            ? (img as { url?: string | null }).url ?? null
+            : null) ?? base.image ?? null,
       };
     }
   } catch (err) {

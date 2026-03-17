@@ -366,15 +366,18 @@ async function resolveProject(slug: string): Promise<ProjectDetail | null> {
                 const doc = result.docs[0];
                 const img = doc.coverImage;
                 const heroImage =
-                    typeof img === "object" && img !== null
-                        ? (img as any).url ?? null
+                    typeof img === "object" && img !== null && "url" in img
+                        ? (img as { url?: string | null }).url ?? null
                         : null;
-                const gallery = (doc.gallery ?? []).map((g: any) => {
-                    const gImg = g.image;
+                const gallery = (Array.isArray(doc.gallery) ? doc.gallery : []).map((g) => {
+                    const gImg =
+                        typeof g === "object" && g !== null && "image" in g
+                            ? (g as { image?: unknown }).image
+                            : null;
                     return {
                         image:
-                            typeof gImg === "object" && gImg !== null
-                                ? (gImg as any).url ?? null
+                            typeof gImg === "object" && gImg !== null && "url" in gImg
+                                ? (gImg as { url?: string | null }).url ?? null
                                 : null,
                         alt: doc.projectName,
                     };
@@ -464,244 +467,167 @@ export default async function ProjectDetailPage({
         currentIndex < allSlugs.length - 1
             ? allSlugs[currentIndex + 1]
             : allSlugs[0];
+    const findSpecValue = (labels: string[]) => {
+        for (const label of labels) {
+            const hit = proj.specs.find((s) => s.label.toLowerCase() === label.toLowerCase());
+            if (hit?.value) return hit.value;
+        }
+        return "—";
+    };
 
-    const gridItemClasses = [
-        "grid-item-1",
-        "grid-item-2",
-        "grid-item-3",
-        "grid-item-4",
-        "grid-item-5",
+    const typeValue = proj.category || "—";
+    const locationValue = findSpecValue(["Location"]);
+    const areaValue = findSpecValue(["Total Area", "Area"]);
+    const yearValue = findSpecValue(["Year", "Completion"]);
+
+    const displayTitle = proj.title?.trim() || "Forest Garden";
+    const displayYear = yearValue !== "—" ? yearValue : "2023";
+    const displayLocation =
+        locationValue !== "—"
+            ? locationValue
+            : proj.category && proj.category !== "—"
+                ? proj.category
+                : "BSD";
+    const displayArea = areaValue !== "—" ? areaValue : "50 sqm";
+    const displayType =
+        typeValue === "—" || typeValue.toLowerCase() === displayLocation.toLowerCase()
+            ? "Forest Garden"
+            : typeValue;
+
+    const dummySliderImages = [
+        "/images/projects-hero-garden.png",
+        "/images/generated/landscaping-project.png",
+        "/images/generated/garden-tools-soil.png",
+        "/images/generated/urban-garden-hero.png",
+        "/images/generated/chicken-coop.png",
     ];
+
+    const allImages = [
+        proj.heroImage,
+        ...proj.gallery.map((g) => g.image),
+    ].filter((img): img is string => typeof img === "string" && img.length > 0);
+
+    const sliderImages: string[] = [];
+    const seenImages = new Set<string>();
+
+    for (const img of allImages) {
+        if (sliderImages.length >= 5) break;
+        if (seenImages.has(img)) continue;
+        seenImages.add(img);
+        sliderImages.push(img);
+    }
+
+    for (const img of dummySliderImages) {
+        if (sliderImages.length >= 5) break;
+        if (seenImages.has(img)) continue;
+        seenImages.add(img);
+        sliderImages.push(img);
+    }
+
+    while (sliderImages.length < 5) {
+        const fallback = dummySliderImages[sliderImages.length % dummySliderImages.length];
+        sliderImages.push(fallback);
+    }
 
     return (
         <main className="pt-20">
-            {/* ─── Hero ─────────────────────────────────────────── */}
-            <section className="relative w-full h-[60vh] md:h-[75vh] overflow-hidden">
-                {proj.heroImage && (
-                    <Image
-                        src={proj.heroImage}
-                        alt={`${proj.title} Hero`}
-                        fill
-                        className="object-cover"
-                        priority
-                    />
-                )}
-                <div className="absolute inset-0 bg-gradient-to-t from-[#1a1c18]/80 via-transparent to-transparent" />
-                <div className="absolute bottom-0 left-0 w-full p-6 md:p-12 lg:p-16">
-                    <div className="max-w-7xl mx-auto">
-                        <div className="flex flex-col md:flex-row items-end justify-between gap-6">
-                            <div>
-
-                                <h1 className="text-4xl md:text-6xl lg:text-7xl font-serif font-bold text-white mb-2 leading-tight">
-                                    {proj.title}
-                                </h1>
-                                <p className="text-white/80 text-lg md:text-xl font-light">
-                                    {proj.tagline}
-                                </p>
-                            </div>
-                            <div className="hidden md:block">
-                                <a
-                                    className="flex items-center gap-2 text-white hover:text-[#d4a373] transition-colors text-sm uppercase tracking-widest font-bold"
-                                    href="#technical-specs"
+            <section className="px-4 sm:px-6 lg:px-8 pt-10">
+                <div className="max-w-7xl mx-auto">
+                    <div className="relative w-full aspect-[16/9] bg-stone-200 overflow-hidden rounded">
+                        <div className="flex h-full overflow-x-auto snap-x snap-mandatory scroll-smooth no-scrollbar">
+                            {sliderImages.map((img, i) => (
+                                (() => {
+                                    const prevIndex = (i - 1 + sliderImages.length) % sliderImages.length;
+                                    const nextIndex = (i + 1) % sliderImages.length;
+                                    return (
+                                <div
+                                    key={`${slug}-${i}`}
+                                    id={`${slug}-slide-${i + 1}`}
+                                    className="relative min-w-full h-full snap-start"
                                 >
-                                    View Technical Specs{" "}
-                                    <span className="material-symbols-outlined">
-                                        arrow_downward
-                                    </span>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
+                                    <Image
+                                        src={img}
+                                        alt={`${proj.title} photo ${i + 1}`}
+                                        fill
+                                        className="object-cover"
+                                        priority={i === 0}
+                                    />
 
-            {/* ─── Technical Specs ──────────────────────────────── */}
-            <section
-                id="technical-specs"
-                className="py-16 bg-white border-b border-stone-200"
-            >
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div className="grid grid-cols-1 md:grid-cols-4 gap-8 md:gap-12">
-                        <div className="md:col-span-1">
-                            <h3 className="font-serif text-2xl text-[#4a6741] mb-4">
-                                Project Data
-                            </h3>
-                            <p className="text-sm text-gray-500 mb-6">
-                                Detailed specifications for the {proj.title} landscaping
-                                implementation.
-                            </p>
-                            <button className="w-full py-3 px-4 border border-[#4a6741] text-[#4a6741] hover:bg-[#4a6741] hover:text-white transition-colors text-xs uppercase tracking-widest font-bold rounded">
-                                Download Blueprint
-                            </button>
-                        </div>
-                        <div className="md:col-span-3 grid grid-cols-2 md:grid-cols-4 gap-6">
-                            {proj.specs.map((spec) => (
-                                <div key={spec.label} className="technical-border pl-4">
-                                    <span className="block text-xs uppercase tracking-widest text-gray-400 mb-1">
-                                        {spec.label}
-                                    </span>
-                                    <span className="block text-xl font-serif font-bold text-gray-900">
-                                        {spec.value}
-                                    </span>
+                                    <a
+                                        href={`#${slug}-slide-${prevIndex + 1}`}
+                                        aria-label="Previous photo"
+                                        className="absolute left-3 top-1/2 -translate-y-1/2 h-10 w-10 rounded-full bg-white/85 backdrop-blur flex items-center justify-center text-gray-900 hover:bg-white transition-colors shadow-sm"
+                                    >
+                                        <span className="material-symbols-outlined text-xl">
+                                            chevron_left
+                                        </span>
+                                    </a>
+
+                                    <a
+                                        href={`#${slug}-slide-${nextIndex + 1}`}
+                                        aria-label="Next photo"
+                                        className="absolute right-3 top-1/2 -translate-y-1/2 h-10 w-10 rounded-full bg-white/85 backdrop-blur flex items-center justify-center text-gray-900 hover:bg-white transition-colors shadow-sm"
+                                    >
+                                        <span className="material-symbols-outlined text-xl">
+                                            chevron_right
+                                        </span>
+                                    </a>
                                 </div>
+                                    );
+                                })()
                             ))}
                         </div>
                     </div>
-                </div>
-            </section>
 
-            {/* ─── Technical Implementation Gallery ─────────────── */}
-            <section className="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
-                <div className="mb-12 max-w-2xl">
-                    <span className="text-[#d4a373] text-xs font-bold uppercase tracking-widest mb-2 block">
-                        The Anatomy of the Design
-                    </span>
-                    <h2 className="font-serif text-4xl text-gray-900 mb-4">
-                        Technical Implementation
-                    </h2>
-                    <p className="text-gray-600 leading-relaxed">
-                        Every corner of the {proj.title} serves a specific ecological or
-                        aesthetic function. We utilized a grid-based planting strategy to
-                        maximize biodiversity within a constrained urban footprint.
-                    </p>
-                </div>
-
-                <div className="grid-asymmetric">
-                    {proj.gallery.map((item, i) => (
-                        <div
-                            key={i}
-                            className={`${gridItemClasses[i] || ""} group relative overflow-hidden rounded-lg`}
-                        >
-                            {item.image && (
-                                <Image
-                                    src={item.image}
-                                    alt={item.alt}
-                                    fill
-                                    className="object-cover transition-transform duration-700 group-hover:scale-105"
-                                />
-                            )}
-
-                            {/* Item 0: System overview card at bottom */}
-                            {i === 0 && item.label && (
-                                <div className="absolute bottom-4 left-4 right-4 bg-white/90 backdrop-blur p-4 rounded border-l-4 border-[#4a6741]">
-                                    <h4 className="font-bold text-[#4a6741] uppercase tracking-wider text-xs mb-1">
-                                        {item.label}
-                                    </h4>
-                                    <p className="text-sm text-gray-700">{item.caption}</p>
-                                </div>
-                            )}
-
-                            {/* Item 1: Hover tooltip */}
-                            {i === 1 && (
-                                <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                                    <div className="bg-white p-3 rounded shadow-lg text-center mx-4">
-                                        <p className="text-xs font-bold uppercase tracking-widest text-[#d4a373]">
-                                            {item.badge}
-                                        </p>
-                                        <p className="text-sm font-serif mt-1">{item.caption}</p>
-                                    </div>
-                                </div>
-                            )}
-
-                            {/* Item 2: Bottom gradient label */}
-                            {i === 2 && (
-                                <div className="absolute bottom-0 left-0 w-full bg-gradient-to-t from-black/80 to-transparent p-4">
-                                    <p className="text-white text-xs font-mono">
-                                        <span className="text-[#d4a373]">03.</span> {item.caption}
-                                    </p>
-                                </div>
-                            )}
-
-                            {/* Item 3: Badge + info card */}
-                            {i === 3 && (
-                                <>
-                                    {item.badge && (
-                                        <div className="absolute top-4 left-4 bg-[#4a6741] text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-widest">
-                                            {item.badge}
-                                        </div>
-                                    )}
-                                    <div className="absolute bottom-4 left-4 right-4">
-                                        <div className="bg-[#f0efe9] p-3 rounded shadow-sm border border-stone-200">
-                                            <h5 className="font-bold text-gray-900 text-sm">
-                                                {item.label}
-                                            </h5>
-                                            <p className="text-xs text-gray-500 mt-1">
-                                                {item.caption}
-                                            </p>
-                                        </div>
-                                    </div>
-                                </>
-                            )}
-
-                            {/* Item 4: Badge at top + info panel at bottom */}
-                            {i === 4 && (
-                                <>
-                                    {item.badge && (
-                                        <div className="absolute top-4 right-4 bg-white/90 text-gray-900 text-xs font-bold px-3 py-1 rounded shadow uppercase tracking-widest">
-                                            {item.badge}
-                                        </div>
-                                    )}
-                                    <div className="absolute bottom-0 w-full bg-white p-4 border-t border-[#d4a373]/30">
-                                        <h5 className="font-bold text-[#4a6741] text-sm mb-1">
-                                            {item.label}
-                                        </h5>
-                                        <p className="text-xs text-gray-600">{item.caption}</p>
-                                    </div>
-                                </>
-                            )}
-                        </div>
-                    ))}
-                </div>
-            </section>
-
-            {/* ─── Plant Palette ────────────────────────────────── */}
-            <section className="bg-stone-100 py-20 border-y border-stone-200">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-12">
-                        <div>
-                            <h2 className="font-serif text-3xl md:text-4xl text-gray-900 mb-2">
-                                Plant Palette
-                            </h2>
-                            <p className="text-gray-500 max-w-xl">
-                                Curated selection of flora used in this ecosystem, chosen for
-                                their resilience and aesthetic harmony.
-                            </p>
-                        </div>
-                        <div className="mt-4 md:mt-0">
-                            <Link href={`/projects/${slug}/plants`} className="text-[#4a6741] hover:text-[#364d2e] font-bold text-sm uppercase tracking-widest flex items-center gap-2">
-                                Full Plant List{" "}
-                                <span className="material-symbols-outlined text-lg">
-                                    list_alt
-                                </span>
-                            </Link>
-                        </div>
-                    </div>
-
-                    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8">
-                        {proj.plants.map((plant) => (
-                            <div
-                                key={plant.name}
-                                className="flex flex-col items-center text-center group"
+                    <div className="mt-4 flex gap-2 overflow-x-auto no-scrollbar">
+                        {sliderImages.map((img, i) => (
+                            <a
+                                key={`${slug}-thumb-${i}`}
+                                href={`#${slug}-slide-${i + 1}`}
+                                className="relative w-12 h-12 md:w-14 md:h-14 shrink-0 overflow-hidden rounded border border-stone-200 bg-white hover:border-[#4a6741] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#4a6741]"
+                                aria-label={`Go to photo ${i + 1}`}
                             >
-                                <div className="w-32 h-32 rounded-full overflow-hidden mb-4 border-4 border-white shadow-md group-hover:border-[#4a6741] transition-colors duration-300">
-                                    {plant.image && (
-                                        <Image
-                                            src={plant.image}
-                                            alt={plant.name}
-                                            width={128}
-                                            height={128}
-                                            className="w-full h-full object-cover transform group-hover:scale-110 transition-transform"
-                                        />
-                                    )}
-                                </div>
-                                <h4 className="font-serif italic text-lg text-gray-900">
-                                    {plant.name}
-                                </h4>
-                                <span className="text-xs text-gray-500 uppercase tracking-wider mt-1">
-                                    {plant.common}
-                                </span>
-                            </div>
+                                <Image
+                                    src={img}
+                                    alt={`${proj.title} thumbnail ${i + 1}`}
+                                    fill
+                                    className="object-cover"
+                                />
+                            </a>
                         ))}
+                    </div>
+                </div>
+            </section>
+
+            <section className="px-4 sm:px-6 lg:px-8 py-12">
+                <div className="max-w-7xl mx-auto">
+                    <h1 className="font-sans text-2xl md:text-3xl font-bold text-gray-900 uppercase tracking-widest">
+                        {displayTitle}
+                    </h1>
+
+                    <div className="mt-10 grid grid-cols-1 md:grid-cols-2 gap-10">
+                        <dl className="text-sm text-gray-700 space-y-3">
+                            <div className="grid grid-cols-[90px_1fr] gap-4">
+                                <dt className="font-bold text-gray-600">Type:</dt>
+                                <dd className="text-gray-900">{displayType}</dd>
+                            </div>
+                            <div className="grid grid-cols-[90px_1fr] gap-4">
+                                <dt className="font-bold text-gray-600">Location:</dt>
+                                <dd className="text-gray-900">{displayLocation}</dd>
+                            </div>
+                            <div className="grid grid-cols-[90px_1fr] gap-4">
+                                <dt className="font-bold text-gray-600">Area:</dt>
+                                <dd className="text-gray-900">{displayArea}</dd>
+                            </div>
+                            <div className="grid grid-cols-[90px_1fr] gap-4">
+                                <dt className="font-bold text-gray-600">Year:</dt>
+                                <dd className="text-gray-900">{displayYear}</dd>
+                            </div>
+                        </dl>
+
+                        <div className="text-gray-700 leading-relaxed">
+                            <p>{proj.tagline}</p>
+                        </div>
                     </div>
                 </div>
             </section>

@@ -46,9 +46,15 @@ export default async function BlogPage() {
                     return {
                         title: post.title,
                         excerpt: post.excerpt ?? "",
-                        category: typeof cat === "object" && cat !== null ? (cat as any).name ?? "" : "",
+                        category:
+                            typeof cat === "object" && cat !== null && "name" in cat
+                                ? String((cat as { name?: unknown }).name ?? "")
+                                : "",
                         slug: post.slug ?? "",
-                        image: typeof img === "object" && img !== null ? (img as any).url ?? null : null,
+                        image:
+                            typeof img === "object" && img !== null && "url" in img
+                                ? (img as { url?: string | null }).url ?? null
+                                : null,
                         date: post.publishedAt ?? "",
                     };
                 });
