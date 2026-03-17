@@ -33,7 +33,7 @@ export default async function ProjectsPage({ searchParams }: Args) {
     const sp = await searchParams;
     const rawFilter = sp.filter;
     const activeFilter = Array.isArray(rawFilter) ? rawFilter[0] : rawFilter;
-    const selectedFilter = filterTabs.includes(activeFilter ?? "") ? activeFilter : "All";
+    const selectedFilter = filterTabs.includes(activeFilter ?? "") ? (activeFilter ?? "All") : "All";
 
     const phase = process.env.NEXT_PHASE;
     if (phase !== "phase-production-build") {

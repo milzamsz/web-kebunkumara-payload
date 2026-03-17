@@ -11,13 +11,15 @@ interface PlantGalleryProps {
 
 export default function PlantGallery({ images, fallbackImage, alt }: PlantGalleryProps) {
     // Build gallery: use explicit images if available, otherwise create a set from the fallback
-    const galleryImages = images && images.length > 0 ? images : [fallbackImage];
-    const [mainImage, setMainImage] = useState(galleryImages[0]);
+    const rawImages = images && images.length > 0 ? images : [fallbackImage];
+    const galleryImages = rawImages.filter(Boolean);
+    const [mainImage, setMainImage] = useState(galleryImages[0] ?? null);
 
     return (
         <div className="space-y-4">
             {/* Main Image */}
             <div className="relative aspect-[16/9] w-full overflow-hidden rounded-2xl bg-stone-100">
+                {mainImage && (
                 <Image
                     src={mainImage}
                     alt={`${alt} Primary`}
@@ -25,6 +27,7 @@ export default function PlantGallery({ images, fallbackImage, alt }: PlantGaller
                     className="object-cover transition-opacity duration-500 ease-in-out"
                     priority
                 />
+                )}
                 <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent pointer-events-none"></div>
             </div>
 

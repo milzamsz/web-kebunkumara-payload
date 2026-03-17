@@ -104,15 +104,15 @@ export function WhyGardenStoriesSection() {
 
               {/* Tabs / Navigation Pills (Inside Image) */}
               <div className="absolute top-6 left-1/2 -translate-x-1/2 z-30 w-[calc(100%-2rem)] max-w-5xl">
-                <div className="flex flex-wrap justify-center gap-4">
+                <div className="flex flex-wrap justify-center gap-2 sm:gap-3 md:gap-4">
                   {stories.map((story, index) => (
                     <button
                       key={story.id}
                       onClick={() => setActiveStoryIndex(index)}
-                      className={`px-6 py-2 rounded-[5px] text-sm font-bold tracking-wider transition-all duration-300 border-2 backdrop-blur-sm ${
+                      className={`px-3 sm:px-4 md:px-6 py-1.5 sm:py-2 rounded-[5px] text-[10px] sm:text-xs md:text-sm font-bold tracking-wider transition-all duration-300 border-2 backdrop-blur-sm whitespace-nowrap ${
                         index === activeStoryIndex
-                          ? "bg-white text-gray-900 border-white shadow-lg scale-105"
-                          : "bg-white/70 text-gray-800 border-white/30 hover:bg-white/85 hover:scale-105"
+                          ? "bg-white text-gray-900 border-white shadow-lg md:scale-105"
+                          : "bg-white/70 text-gray-800 border-white/30 md:hover:bg-white/85 md:hover:scale-105"
                       }`}
                     >
                       {story.label}
