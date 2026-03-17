@@ -64,10 +64,29 @@ export default async function ProgramsPage() {
     }
     return (
         <main>
-
+            <section className="relative h-[55vh] min-h-[380px] flex items-center justify-center overflow-hidden">
+                <div className="absolute inset-0">
+                    <Image
+                        src="/images/generated/urban-garden-hero.png"
+                        alt="Educational programs at Kebun Kumara"
+                        fill
+                        className="object-cover"
+                        priority
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/70" />
+                </div>
+                <div className="relative z-10 text-center text-white max-w-3xl mx-auto px-4 sm:px-6 pt-20 animate-fade-in-up">
+                    <h1 className="text-4xl sm:text-5xl lg:text-6xl font-display font-bold leading-tight mb-6 drop-shadow-lg">
+                        Educational Programs
+                    </h1>
+                    <p className="text-lg text-gray-200 max-w-xl mx-auto leading-relaxed">
+                        Hands-on programs for individuals, schools, and corporations to learn sustainable living through gardening.
+                    </p>
+                </div>
+            </section>
 
             {/* ─── Programs List ──────────────────────────────────── */}
-            <section className="py-24 bg-[#F7F5EF]">
+            <section className="pt-0 pb-24 bg-[#F7F5EF]">
                 <div className="w-full space-y-0">
                     {/* Public Workshops */}
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-0 items-stretch">

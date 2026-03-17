@@ -156,6 +156,23 @@ Track what was changed in each frontend vibe coding session. Add a new entry at 
 
 ---
 
+### 2026-03-18 — Hero section consistency pass
+
+**Files edited:**
+- `src/app/(frontend)/services/educational-program/page.tsx` — Added full-bleed hero section (55vh, `/images/generated/urban-garden-hero.png`, gradient overlay, centered text); adjusted programs list from `py-24` to `pt-0 pb-24`
+- `src/app/(frontend)/services/landscaping-consultancy/page.tsx` — Restyled hero: reduced height from `80vh` to `55vh`, simplified gradient (removed bottom fade-to-bg layer), updated typography to `font-display` matching educational-program pattern, removed extra `<span>` wrapper
+
+**Schema changed:** No
+
+**CMS sync needed:**
+- [x] `/images/generated/urban-garden-hero.png` — already present locally ✅
+- [x] `/images/projects-hero-garden.png` — already present locally ✅
+- [ ] `Portfolios` collection → real `coverImage` + `gallery` images still pending from 2026-03-17 (upload at `/admin/collections/portfolios`)
+
+**CMS synced:** No new CMS entries required — all hero images are local static files
+
+---
+
 ### 2026-03-17 — UI redesign pass + TypeScript cleanup
 
 **Files edited:**

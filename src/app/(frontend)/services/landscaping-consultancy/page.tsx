@@ -80,25 +80,23 @@ export default async function ProjectsPage({ searchParams }: Args) {
     return (
         <main>
             {/* ─── Hero ─────────────────────────────────────────── */}
-            <section className="relative h-[80vh] min-h-[500px] w-full overflow-hidden flex items-center justify-center">
+            <section className="relative h-[55vh] min-h-[380px] flex items-center justify-center overflow-hidden">
                 <div className="absolute inset-0">
                     <Image
                         src="/images/projects-hero-garden.png"
                         alt="Garden path with colorful flowers"
                         fill
-                        className="object-cover object-center"
+                        className="object-cover"
                         priority
                     />
-                    <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/45 to-black/70" />
-                    <div className="absolute bottom-0 w-full h-32 bg-gradient-to-t from-[#f0efe9] to-transparent" />
+                    <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/70" />
                 </div>
-                <div className="relative z-10 text-center px-4 pt-20 max-w-4xl mx-auto animate-fade-in-up">
-
-                    <h1 className="font-serif text-5xl md:text-7xl lg:text-8xl font-bold text-white mb-6 leading-tight drop-shadow-lg">
+                <div className="relative z-10 text-center text-white max-w-3xl mx-auto px-4 sm:px-6 pt-20 animate-fade-in-up">
+                    <h1 className="text-4xl sm:text-5xl lg:text-6xl font-display font-bold leading-tight mb-6 drop-shadow-lg">
                         Landscaping <br />
-                        <span>Consultancy</span>
+                        Consultancy
                     </h1>
-                    <p className="text-lg md:text-xl text-gray-200 max-w-3xl mx-auto leading-relaxed">
+                    <p className="text-lg text-gray-200 max-w-xl mx-auto leading-relaxed">
                         Regenerative landscape design-and-build consultancy that integrates food production, biodiversity, and sustainable systems into meaningful spaces.
                     </p>
                 </div>
