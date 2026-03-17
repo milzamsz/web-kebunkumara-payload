@@ -99,13 +99,13 @@ export default function Footer({ global, footer, siteSettings }: FooterProps) {
 
                     {/* Center: Logo */}
                     <div className="flex flex-col items-center gap-6 order-1 md:order-2">
-                        <div className="relative w-48 h-48 md:w-64 md:h-64">
+                        <div className="relative w-64 h-64 md:w-96 md:h-96">
                             <Image
                                 src={footerLogo}
                                 alt={global?.siteName ?? "Kebun Kumara"}
                                 fill
                                 className="object-contain"
-                                sizes="(max-width: 768px) 192px, 256px"
+                                sizes="(max-width: 768px) 256px, 384px"
                             />
                         </div>
                     </div>
