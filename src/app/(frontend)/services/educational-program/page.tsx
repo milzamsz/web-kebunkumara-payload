@@ -86,7 +86,7 @@ export default async function ProgramsPage() {
             </section>
 
             {/* ─── Programs List ──────────────────────────────────── */}
-            <section className="pt-0 pb-24 bg-[#F7F5EF]">
+            <section className="pt-0 pb-0 bg-[#F7F5EF]">
                 <div className="w-full space-y-0">
                     {/* Public Workshops */}
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-0 items-stretch">

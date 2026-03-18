@@ -96,7 +96,7 @@ export default async function ProjectsPage({ searchParams }: Args) {
                         Landscaping <br />
                         Consultancy
                     </h1>
-                    <p className="text-lg text-gray-200 max-w-xl mx-auto leading-relaxed">
+                    <p className="text-lg text-gray-200 mx-auto leading-relaxed">
                         Regenerative landscape design-and-build consultancy that integrates food production, biodiversity, and sustainable systems into meaningful spaces.
                     </p>
                 </div>
@@ -110,7 +110,7 @@ export default async function ProjectsPage({ searchParams }: Args) {
                 <div className="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
                     <div className="flex justify-between items-end mb-12 border-b border-gray-200 pb-6">
                         <div>
-                            <h3 className="font-sans text-2xl md:text-3xl font-bold text-gray-900">
+                            <h3 className="font-sans text-2xl md:text-3xl font-normal text-gray-900">
                                 Selected Projects
                             </h3>
                         </div>
@@ -143,7 +143,7 @@ export default async function ProjectsPage({ searchParams }: Args) {
                                 <Link
                                     key={project.slug}
                                     href={`/services/landscaping-consultancy/${project.slug}`}
-                                    className={`relative group overflow-hidden rounded-2xl block ${isFeatured ? "md:col-span-2 md:row-span-2" : ""
+                                    className={`relative group overflow-hidden rounded-[5px] block ${isFeatured ? "md:col-span-2 md:row-span-2" : ""
                                         } ${!isFeatured && isTall ? "md:row-span-2" : ""}`}
                                 >
                                     {project.image && (

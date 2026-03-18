@@ -6,6 +6,7 @@
     "dev": "node scripts/next-runner.mjs dev",
     "build": "next build",
     "start": "node scripts/next-runner.mjs start",
+    "start:standalone": "node scripts/start-standalone.mjs",
     "lint": "eslint",
     "seed": "node --require ./scripts/preload-env.cjs node_modules/tsx/dist/cli.cjs --tsconfig tsconfig.seed.json src/seed.ts",
     "seed:run": "node --require ./scripts/preload-env.cjs node_modules/tsx/dist/cli.cjs --tsconfig tsconfig.seed.json src/seed.ts"
