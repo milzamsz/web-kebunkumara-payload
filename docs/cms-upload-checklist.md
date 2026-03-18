@@ -156,6 +156,22 @@ Track what was changed in each frontend vibe coding session. Add a new entry at 
 
 ---
 
+### 2026-03-19 — DB push fix + spacing + card radius
+
+**Files edited:**
+- `src/payload.config.ts` — Disabled automatic db push to avoid failing DROP CONSTRAINT queries in dev
+- `src/app/(frontend)/layout.tsx` — CMS globals fetch runs without triggering schema push errors
+- `src/app/(frontend)/services/educational-program/page.tsx` — CTA bottom spacing restored (`py-24`)
+- `src/app/(frontend)/services/garden-product/page.tsx` — Product card border radius set to `rounded-[5px]`
+
+**Schema changed:** No
+
+**CMS sync needed:** No
+
+**CMS synced:** No
+
+---
+
 ### 2026-03-18 — Hero section consistency pass
 
 **Files edited:**

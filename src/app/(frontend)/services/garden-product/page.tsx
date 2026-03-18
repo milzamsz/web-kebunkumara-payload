@@ -99,7 +99,7 @@ export default async function GardenProductPage() {
               <Link
                 key={i}
                 href={`/services/garden-product/${product.slug}`}
-                className="group block bg-white rounded-3xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1"
+                className="group block bg-white rounded-[5px] overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1"
               >
                 <div className="relative h-64 overflow-hidden">
                   <Image
