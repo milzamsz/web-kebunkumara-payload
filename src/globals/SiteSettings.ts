@@ -29,6 +29,16 @@ export const SiteSettings: GlobalConfig = {
       },
     },
     {
+      name: 'email',
+      label: 'Contact Email',
+      type: 'text',
+    },
+    {
+      name: 'address',
+      label: 'Address',
+      type: 'textarea',
+    },
+    {
       name: 'mapsEmbedUrl',
       label: 'Google Maps Embed URL',
       type: 'text',
@@ -49,6 +59,11 @@ export const SiteSettings: GlobalConfig = {
         {
           name: 'instagram',
           label: 'Instagram URL',
+          type: 'text',
+        },
+        {
+          name: 'facebook',
+          label: 'Facebook URL',
           type: 'text',
         },
         {

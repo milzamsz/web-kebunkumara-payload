@@ -8,14 +8,47 @@
 import type { Payload } from 'payload'
 import { getPayload } from 'payload'
 import config from './payload.config'
+import type { Service } from './payload-types'
+
+type LexicalTextNode = {
+  type: 'text'
+  text: string
+  format: number
+  style: string
+  mode: 'normal'
+  detail: number
+  version: number
+}
+
+type LexicalBlockNode = {
+  type: 'paragraph' | 'heading'
+  children: LexicalTextNode[]
+  direction: 'ltr'
+  format: ''
+  indent: number
+  version: number
+  tag?: string
+  textFormat?: number
+}
+
+type LexicalDocument = {
+  root: {
+    type: 'root'
+    children: LexicalBlockNode[]
+    direction: 'ltr'
+    format: ''
+    indent: number
+    version: number
+  }
+}
 
 // ─── Lexical Helpers ────────────────────────────────────────────────────────
 
-function lexicalText(text: string) {
+function lexicalText(text: string): LexicalTextNode {
   return { type: 'text', text, format: 0, style: '', mode: 'normal', detail: 0, version: 1 }
 }
 
-function lexicalParagraph(text: string) {
+function lexicalParagraph(text: string): LexicalBlockNode {
   return {
     type: 'paragraph',
     children: [lexicalText(text)],
@@ -27,7 +60,7 @@ function lexicalParagraph(text: string) {
   }
 }
 
-function lexicalHeading(text: string, tag = 'h2') {
+function lexicalHeading(text: string, tag = 'h2'): LexicalBlockNode {
   return {
     type: 'heading',
     tag,
@@ -39,7 +72,7 @@ function lexicalHeading(text: string, tag = 'h2') {
   }
 }
 
-function lexicalDoc(nodes: object[]) {
+function lexicalDoc(nodes: LexicalBlockNode[]): LexicalDocument {
   return {
     root: {
       type: 'root',
@@ -71,7 +104,13 @@ const PLANT_CATEGORIES = [
   { name: 'Shade-loving', slug: 'shade-loving' },
 ]
 
-const SERVICES_PROGRAMS = [
+const SERVICES_PROGRAMS: Array<{
+  slug: string
+  name: string
+  serviceCategory: Service['serviceCategory']
+  shortDescription: string
+  displayOrder: number
+}> = [
   {
     slug: 'public-workshops',
     name: 'Public Workshops',
@@ -476,7 +515,7 @@ async function seed(payload: Payload) {
 
   // ── 2. Blog Categories ────────────────────────────────────────────────────
   console.log('\n📂 Creating blog categories...')
-  const categoryMap: Record<string, string> = {}
+  const categoryMap: Record<string, number> = {}
   for (const name of CATEGORIES) {
     const slug = name.toLowerCase().replace(/\s+/g, '-')
     try {
@@ -485,7 +524,7 @@ async function seed(payload: Payload) {
         where: { slug: { equals: slug } },
       })
       if (existing.docs.length > 0) {
-        categoryMap[name] = existing.docs[0].id as string
+        categoryMap[name] = existing.docs[0].id
         console.log(`   ↩️  Category "${name}" already exists`)
         continue
       }
@@ -493,7 +532,7 @@ async function seed(payload: Payload) {
         collection: 'categories',
         data: { name, slug },
       })
-      categoryMap[name] = cat.id as string
+      categoryMap[name] = cat.id
       console.log(`   ✅ ${name}`)
     } catch (err) {
       console.error(`   ❌ Error creating category "${name}":`, err)
@@ -502,7 +541,7 @@ async function seed(payload: Payload) {
 
   // ── 3. Plant Categories ───────────────────────────────────────────────────
   console.log('\n🌿 Creating plant categories...')
-  const plantCategoryMap: Record<string, string> = {}
+  const plantCategoryMap: Record<string, number> = {}
   for (const pc of PLANT_CATEGORIES) {
     try {
       const existing = await payload.find({
@@ -510,7 +549,7 @@ async function seed(payload: Payload) {
         where: { slug: { equals: pc.slug } },
       })
       if (existing.docs.length > 0) {
-        plantCategoryMap[pc.slug] = existing.docs[0].id as string
+        plantCategoryMap[pc.slug] = existing.docs[0].id
         console.log(`   ↩️  Plant category "${pc.name}" already exists`)
         continue
       }
@@ -518,7 +557,7 @@ async function seed(payload: Payload) {
         collection: 'plantCategories',
         data: { name: pc.name, slug: pc.slug },
       })
-      plantCategoryMap[pc.slug] = created.id as string
+      plantCategoryMap[pc.slug] = created.id
       console.log(`   ✅ ${pc.name}`)
     } catch (err) {
       console.error(`   ❌ Error creating plant category "${pc.name}":`, err)
@@ -646,8 +685,9 @@ async function seed(payload: Payload) {
         continue
       }
       const pcId = plantCategoryMap[plant.plantCategorySlug]
-      const designersNote =
-        (plant as unknown as { designersNote?: unknown }).designersNote
+      const designersNote = (
+        plant as { designersNote?: { quote: string; author: string } }
+      ).designersNote
       await payload.create({
         collection: 'plants',
         data: {
@@ -657,7 +697,7 @@ async function seed(payload: Payload) {
           plantFamily: plant.plantFamily,
           origin: plant.origin,
           careGuide: plant.careGuide,
-          designersNote: typeof designersNote === 'string' ? designersNote : undefined,
+          designersNote,
           plantType: pcId ? [pcId] : [],
           ecologicalRole: lexicalDoc([lexicalParagraph(`${plant.commonName} (${plant.scientificName}) — ${plant.careGuide.sunlight ?? ''}`)]),
           _status: 'published',
@@ -686,10 +726,13 @@ async function seed(payload: Payload) {
         siteDescription:
           'Established in 2016, we aim to realize healthy, sustainable urban culture through greener habits and regenerative landscapes.',
         whatsappNumber: '6281510986060',
+        email: 'kebunkumara@gmail.com',
+        address: 'Scientia Square Park, Gading Serpong, Tangerang',
         mapsEmbedUrl:
           'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3966.059293880467!2d106.61567107592928!3d-6.255918761249764!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69fb56b2161e11%3A0x2d1746618585970!2sScientia%20Square%20Park!5e0!3m2!1sen!2sid!4v1715421234567!5m2!1sen!2sid',
         socialMedia: {
           instagram: 'https://www.instagram.com/kebunkumara/',
+          facebook: 'https://www.facebook.com/kebunkumara/',
           youtube: 'https://www.youtube.com/c/kebunkumara',
         },
       },
@@ -763,13 +806,13 @@ async function seed(payload: Payload) {
   }
 
   // ── 9. Pages ──────────────────────────────────────────────────────────────
-  console.log('\n📄 Creating pages...')
+  console.log('\n📄 Upserting pages...')
   const pagesData = [
     {
       title: 'Home',
       slug: 'home',
       hero: {
-        heading: 'Growing Gardens for Human‑Nature Connection',
+        heading: 'Growing Gardens\nfor Human-Nature\nConnection',
         subheading:
           'Established in 2016, we aim to realize healthy, sustainable urban culture through greener habits and regenerative landscapes.',
         backgroundVideo: '/videos/5692315-hd_1920_1080_30fps.mp4',
@@ -781,10 +824,10 @@ async function seed(payload: Payload) {
       title: 'About Us',
       slug: 'about',
       hero: {
-        heading: 'Sekelompok Anak Kota Haus Pengetahuan',
+        heading: 'Sekelompok Anak Kota\nHaus Pengetahuan',
         subheading:
-          'Mewujudkan budaya perkotaan yang sehat dan berkelanjutan melalui kebiasaan lebih hijau dan lanskap regeneratif.',
-        buttonText: 'Ayo Berkolaborasi!',
+          'Mewujudkan budaya perkotaan yang sehat dan berkelanjutan melalui kebiasaan hijau dan lanskap regeneratif, sejak 2016.',
+        buttonText: 'Hubungi Kami',
         buttonLink: 'https://wa.me/6281510986060',
       },
     },
@@ -792,9 +835,9 @@ async function seed(payload: Payload) {
       title: 'Contact',
       slug: 'contact',
       hero: {
-        heading: "Let's Grow Together",
+        heading: 'Contact',
         subheading:
-          'We are here to help you reconnect with nature. Whether you have a question, want to collaborate, or are ready to start a project — get in touch.',
+          'We are here to help you reconnect with nature. Reach out for collaborations, inquiries, or just to say hello.',
       },
     },
     {
@@ -802,7 +845,28 @@ async function seed(payload: Payload) {
       slug: 'why-garden',
       hero: {
         heading: 'Why Garden?',
-        subheading: 'Discover how reconnecting with nature transforms lives, communities, and cities.',
+        subheading:
+          'Gardening reminds us that we are part of a cycle. Explore why nature changes everything.',
+      },
+    },
+    {
+      title: 'In The Media',
+      slug: 'media',
+      hero: {
+        heading: 'In The Media',
+        subheading:
+          'Features, stories, and conversations about our journey in urban farming.',
+      },
+    },
+    {
+      title: 'Movements',
+      slug: 'movement',
+      hero: {
+        heading: 'Our Movements',
+        subheading:
+          'Join us in creating a more sustainable future through collective action.',
+        buttonText: 'Contact Us',
+        buttonLink: '/contact',
       },
     },
   ]
@@ -814,7 +878,17 @@ async function seed(payload: Payload) {
         where: { slug: { equals: page.slug } },
       })
       if (existing.docs.length > 0) {
-        console.log(`   ↩️  Page "${page.title}" already exists`)
+        await payload.update({
+          collection: 'pages',
+          id: existing.docs[0].id,
+          data: {
+            title: page.title,
+            slug: page.slug,
+            hero: page.hero,
+            _status: 'published',
+          },
+        })
+        console.log(`   🔄 ${page.title}`)
         continue
       }
       await payload.create({
@@ -828,7 +902,7 @@ async function seed(payload: Payload) {
       })
       console.log(`   ✅ ${page.title}`)
     } catch (err) {
-      console.error(`   ❌ Error creating page "${page.title}":`, err)
+      console.error(`   ❌ Error upserting page "${page.title}":`, err)
     }
   }
 

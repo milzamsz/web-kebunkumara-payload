@@ -4,19 +4,26 @@ import { WhyGardenSection } from "@/components/sections/WhyGardenSection";
 import { WhyGardenFeedbackSection } from "@/components/sections/WhyGardenFeedbackSection";
 import { WhyGardenStoriesSection } from "@/components/sections/WhyGardenStoriesSection";
 import { WhyGardenBlogSection } from "@/components/sections/WhyGardenBlogSection";
+import { fallbackPageContent } from "@/lib/fallback-data";
+import { getMediaUrl, getPublishedPageBySlug } from "@/lib/frontend-cms";
 
 export const metadata: Metadata = {
   title: "Why Garden? | Kebun Kumara",
-  description: "Gardening reminds us that we are part of a cycle. Explore why nature changes everything.",
+  description:
+    "Gardening reminds us that we are part of a cycle. Explore why nature changes everything.",
 };
 
-export default function WhyGardenPage() {
+export default async function WhyGardenPage() {
+  const whyGardenPage = await getPublishedPageBySlug("why-garden", "WhyGarden");
+  const heroImage =
+    getMediaUrl(whyGardenPage?.hero?.backgroundImage) ??
+    fallbackPageContent.whyGarden.backgroundImage;
+
   return (
     <main className="min-h-screen">
-      {/* 0. Hero (Photo Only) */}
-      <section className="relative w-full h-[85vh] md:h-screen">
+      <section className="relative h-[85vh] w-full md:h-screen">
         <Image
-          src="https://images.unsplash.com/photo-1466692476868-aef1dfb1e735?q=80&w=2000&auto=format&fit=crop"
+          src={heroImage}
           alt="Why Garden Hero"
           fill
           className="object-cover"
@@ -24,16 +31,9 @@ export default function WhyGardenPage() {
         />
       </section>
 
-      {/* 1. Main Why Garden Section (Intro) */}
       <WhyGardenSection variant="vertical" />
-      
-      {/* 2. Feedback / How We Work Section (Philosophy) */}
       <WhyGardenFeedbackSection />
-
-      {/* 3. Stories Section (Interactive Showcase: Projects & Impact) */}
       <WhyGardenStoriesSection />
-
-      {/* 4. Blog / Impact Section (Call to Action & Resources) */}
       <WhyGardenBlogSection />
     </main>
   );

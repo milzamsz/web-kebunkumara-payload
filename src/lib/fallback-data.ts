@@ -191,11 +191,13 @@ export const fallbackProducts = [
 
 export const fallbackMovements = [
     {
+        slug: "kompos-kolektif",
         title: "Kompos Kolektif",
         description: "Join our community composting initiative to reduce waste.",
         image: "https://images.unsplash.com/photo-1595278069441-2cf29f8005a4?w=600&h=400&fit=crop",
     },
     {
+        slug: "urban-farming-workshop",
         title: "Urban Farming Workshop",
         description: "Regular workshops to spread the knowledge of urban farming.",
         image: "/images/generated/garden-tools-soil.png",
@@ -283,10 +285,84 @@ export const fallbackContactServiceOptions = [
 ];
 
 export const fallbackContactDetails = {
-    email: "hello@kebunkumara.id",
+    email: "kebunkumara@gmail.com",
     phone: "+62 815 1098 6060",
     whatsappNumber: "6281510986060",
     address: "Scientia Square Park, Gading Serpong, Tangerang",
+};
+
+export const fallbackSiteSettings = {
+    siteName: "Kebun Kumara",
+    siteDescription:
+        "Established in 2016, we aim to realize healthy, sustainable urban culture through greener habits and regenerative landscapes.",
+    whatsappNumber: "6281510986060",
+    email: "kebunkumara@gmail.com",
+    address: "Scientia Square Park, Gading Serpong, Tangerang",
+    mapsEmbedUrl:
+        "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3966.059293880467!2d106.61567107592928!3d-6.255918761249764!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69fb56b2161e11%3A0x2d1746618585970!2sScientia%20Square%20Park!5e0!3m2!1sen!2sid!4v1715421234567!5m2!1sen!2sid",
+    socialMedia: {
+        instagram: "https://www.instagram.com/kebunkumara/",
+        facebook: "https://www.facebook.com/kebunkumara/",
+        youtube: "https://www.youtube.com/c/kebunkumara",
+        tiktok: null,
+        linkedin: null,
+    },
+};
+
+export const fallbackPageContent = {
+    home: {
+        heading: "Growing Gardens\nfor Human-Nature\nConnection",
+        subheading:
+            "Established in 2016, we aim to realize healthy, sustainable urban culture through greener habits and regenerative landscapes.",
+        backgroundImage:
+            "https://images.unsplash.com/photo-1511497584788-876760111969?q=80&w=1920&auto=format&fit=crop",
+        backgroundVideo: "/videos/5692315-hd_1920_1080_30fps.mp4",
+        buttonText: "Explore Our Services",
+        buttonLink: "/services/educational-program",
+    },
+    about: {
+        heading: "Sekelompok Anak Kota\nHaus Pengetahuan",
+        subheading:
+            "Mewujudkan budaya perkotaan yang sehat dan berkelanjutan melalui kebiasaan hijau dan lanskap regeneratif, sejak 2016.",
+        backgroundImage:
+            "https://images.unsplash.com/photo-1466692476868-aef1dfb1e735?w=1920&h=800&fit=crop",
+        buttonText: "Hubungi Kami",
+        buttonLink: "https://wa.me/6281510986060",
+    },
+    contact: {
+        heading: "Contact",
+        subheading:
+            "We are here to help you reconnect with nature. Reach out for collaborations, inquiries, or just to say hello.",
+        backgroundImage: null,
+        buttonText: null,
+        buttonLink: null,
+    },
+    whyGarden: {
+        heading: "Why Garden?",
+        subheading:
+            "Gardening reminds us that we are part of a cycle. Explore why nature changes everything.",
+        backgroundImage:
+            "https://images.unsplash.com/photo-1466692476868-aef1dfb1e735?q=80&w=2000&auto=format&fit=crop",
+        buttonText: null,
+        buttonLink: null,
+    },
+    media: {
+        heading: "In The Media",
+        subheading:
+            "Features, stories, and conversations about our journey in urban farming.",
+        backgroundImage: null,
+        buttonText: null,
+        buttonLink: null,
+    },
+    movement: {
+        heading: "Our Movements",
+        subheading:
+            "Join us in creating a more sustainable future through collective action.",
+        backgroundImage:
+            "https://images.unsplash.com/photo-1595278069441-2cf29f8005a4?w=2000&auto=format&fit=crop",
+        buttonText: "Contact Us",
+        buttonLink: "/contact",
+    },
 };
 
 // ─── Projects Page ──────────────────────────────────────────

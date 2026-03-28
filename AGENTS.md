@@ -239,6 +239,23 @@ AI only touches CMS files when the user explicitly says so (e.g. "also update th
 
 ---
 
+## Supplementary Rule Docs
+
+Codex uses this `AGENTS.md` as the primary project rule file. When working in the areas below, also consult the matching reference in `.cursor/rules/`:
+
+- `payload-overview.md` — project structure, collections, globals, scripts
+- `frontend-cms-pattern.md` — fallback-first CMS fetch pattern for frontend pages
+- `collections.md` — collection config conventions and draft/access patterns
+- `access-control.md` — access helpers and row-level access patterns
+- `hooks.md` — hook conventions, recursion guards, nested operations with `req`
+- `queries.md` — Local API query patterns and relation/query examples
+- `nextjs-patterns.md` — Next.js 16 App Router conventions specific to this repo
+- `security-critical.mdc` — always-apply security constraints
+
+These files are supplementary references, not replacements for the rules in this `AGENTS.md`.
+
+---
+
 ## Resources
 
 - Payload Docs: https://payloadcms.com/docs

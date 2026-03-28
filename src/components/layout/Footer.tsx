@@ -25,6 +25,7 @@ interface FooterProps {
     siteSettings?: {
         socialMedia?: {
             instagram?: string | null;
+            facebook?: string | null;
             youtube?: string | null;
             tiktok?: string | null;
             linkedin?: string | null;
@@ -53,7 +54,9 @@ export default function Footer({ global, footer, siteSettings }: FooterProps) {
         siteSettings?.socialMedia?.youtube ??
         null;
     const cmsFacebookUrl =
-        footer?.socialLinks?.find((l) => l.platform.toLowerCase() === "facebook")?.url ?? null;
+        footer?.socialLinks?.find((l) => l.platform.toLowerCase() === "facebook")?.url ??
+        siteSettings?.socialMedia?.facebook ??
+        null;
 
     const instagramUrl = cmsInstagramUrl ?? fallbackInstagramUrl;
     const youtubeUrl = cmsYoutubeUrl ?? fallbackYoutubeUrl;

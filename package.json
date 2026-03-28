@@ -8,8 +8,10 @@
     "start": "node scripts/next-runner.mjs start",
     "start:standalone": "node scripts/start-standalone.mjs",
     "lint": "eslint",
-    "seed": "node --require ./scripts/preload-env.cjs node_modules/tsx/dist/cli.cjs --tsconfig tsconfig.seed.json src/seed.ts",
-    "seed:run": "node --require ./scripts/preload-env.cjs node_modules/tsx/dist/cli.cjs --tsconfig tsconfig.seed.json src/seed.ts"
+    "generate:types": "node --require ./scripts/preload-env.cjs --import tsx scripts/generate-payload-artifacts.ts --types",
+    "generate:importmap": "node --require ./scripts/preload-env.cjs --import tsx scripts/generate-payload-artifacts.ts --importmap",
+    "seed": "node --require ./scripts/preload-env.cjs --import tsx src/seed.ts",
+    "seed:run": "node --require ./scripts/preload-env.cjs --import tsx src/seed.ts"
   },
   "dependencies": {
     "@payloadcms/db-postgres": "^3.79.0",

@@ -3,6 +3,7 @@ import "../globals.css";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import WhatsAppFab from "@/components/layout/WhatsAppFab";
+import { fallbackSiteSettings } from "@/lib/fallback-data";
 import { getPayload } from "payload";
 import config from "@payload-config";
 
@@ -71,6 +72,7 @@ type SiteSettingsGlobal = {
   whatsappNumber?: string | null;
   socialMedia?: {
     instagram?: string | null;
+    facebook?: string | null;
     youtube?: string | null;
     tiktok?: string | null;
     linkedin?: string | null;
@@ -83,9 +85,9 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   const fallbackGlobal = {
-    whatsappNumber: "6281510986060",
+    whatsappNumber: fallbackSiteSettings.whatsappNumber,
     logo: null as null,
-    siteName: "Kebun Kumara",
+    siteName: fallbackSiteSettings.siteName,
   };
 
   let header: HeaderGlobal | null = null;

@@ -3,6 +3,9 @@ import net from "node:net";
 import path from "node:path";
 import process from "node:process";
 
+const DEV_SERVER_ACTIONS_ENCRYPTION_KEY =
+  "a2VidW5rdW1hcmEtbmV4dC1kZXYtYWN0aW9ucy1rZXk=";
+
 const mode = process.argv[2];
 if (!mode || (mode !== "dev" && mode !== "start")) {
   console.error("Usage: node scripts/next-runner.mjs <dev|start> [next args...]");
@@ -47,6 +50,53 @@ if (selectedPort) {
   console.log(`[next-runner] ${mode} on port ${selectedPort}`);
 }
 
+function getNormalizedLocalServerURL(value, port) {
+  if (!port) {
+    return value;
+  }
+
+  if (!value) {
+    return `http://localhost:${port}`;
+  }
+
+  try {
+    const parsed = new URL(value);
+
+    if (
+      parsed.protocol === "http:" &&
+      parsed.hostname === "localhost" &&
+      parsed.port !== port
+    ) {
+      return `http://localhost:${port}`;
+    }
+  } catch {
+    // Preserve non-URL values and let Next/Payload report them if needed.
+  }
+
+  return value;
+}
+
+const runtimePort = selectedPort ?? process.env.PORT ?? "3000";
+const childEnv = { ...process.env };
+
+if (mode === "dev") {
+  const normalizedServerURL = getNormalizedLocalServerURL(
+    process.env.NEXT_PUBLIC_SERVER_URL,
+    runtimePort,
+  );
+
+  if (normalizedServerURL !== process.env.NEXT_PUBLIC_SERVER_URL) {
+    console.log(
+      `[next-runner] using NEXT_PUBLIC_SERVER_URL=${normalizedServerURL}`,
+    );
+  }
+
+  childEnv.NEXT_PUBLIC_SERVER_URL = normalizedServerURL;
+  childEnv.NEXT_SERVER_ACTIONS_ENCRYPTION_KEY =
+    process.env.NEXT_SERVER_ACTIONS_ENCRYPTION_KEY ??
+    DEV_SERVER_ACTIONS_ENCRYPTION_KEY;
+}
+
 const nextCliPath = path.join(process.cwd(), "node_modules", "next", "dist", "bin", "next");
 const nextArgs = [nextCliPath, mode];
 
@@ -58,7 +108,7 @@ nextArgs.push(...passthroughArgs);
 
 const child = spawn(process.execPath, nextArgs, {
   stdio: "inherit",
-  env: selectedPort ? { ...process.env, PORT: selectedPort } : process.env,
+  env: selectedPort ? { ...childEnv, PORT: selectedPort } : childEnv,
 });
 
 child.on("error", (error) => {
