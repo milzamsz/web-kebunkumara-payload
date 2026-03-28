@@ -60,7 +60,7 @@ export default buildConfig({
     pool: {
       connectionString: process.env.DATABASE_URL,
     },
-    push: false,
+    push: process.env.DB_PUSH === 'true' || false,
   }),
 
   editor: lexicalEditor(),
